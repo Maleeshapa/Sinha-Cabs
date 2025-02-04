@@ -1047,8 +1047,8 @@ const NewSales = ({ invoice }) => {
                     </div> */}
 
                 </div>
-                <div className="btn-pos mt-4 d-flex justify-content-between  align-items-center">
-                  <div className="option-invoice">
+                <div className="btn-pos mt-4 d-flex justify-content-end  align-items-center">
+                  {/* <div className="option-invoice">
                     <form action="">
                       <br />
                       <label className='invoice-type-label' htmlFor="">Address</label>
@@ -1067,7 +1067,7 @@ const NewSales = ({ invoice }) => {
                       <label className='invoice-type-label' htmlFor="">Note</label>
                       <input type="checkbox" name="note" checked={checkboxStates.note} onChange={() => handleCheckboxChange('note')} className='invoice-checkbox' />
                     </form>
-                  </div>
+                  </div> */}
                   <div className="sales-btn">
                     <div className="payment-form-button d-grid d-md-flex me-md-2 justify-content-end px-5">
                       <button className='btn btn-primary mb-2' type='submit' onClick={changeStatus} style={{ fontSize: "12px" }}>Draft</button>
