@@ -3,12 +3,9 @@ const { Op } = require('sequelize');
 
 async function createCustomer(req, res) {
     try {
-        const { cusName, cusAddress, cusPhone, cusJob, cusOffice, cusStore, cusEmail } = req.body;
+        const { cusName, cusAddress, cusPhone, cusJob, cusOffice, cusStore, cusEmail, nic, license, guarantorName, guarantorNic, guarantorPhone, guarantorAddress, customerReview } = req.body;
 
-        // Validate required fields
-        if (!cusName || !cusAddress || !cusStore) {
-            return res.status(400).json({ error: "All fields are required." });
-        }
+        
 
         // Generate cusCode
         const lastCustomer = await Customer.findOne({
@@ -30,6 +27,13 @@ async function createCustomer(req, res) {
             cusOffice,
             cusStore,
             cusEmail,
+            nic,
+            license,
+            guarantorName,
+            guarantorNic,
+            guarantorPhone,
+            guarantorAddress,
+            customerReview,
         });
 
         // Return success response
@@ -86,7 +90,14 @@ async function updateCustomer(req, res) {
             cusJob,
             cusOffice,
             cusStore,
-            cusEmail
+            cusEmail,
+            nic,
+            license,
+            guarantorName,
+            guarantorNic,
+            guarantorPhone,
+            guarantorAddress,
+            customerReview
         } = req.body;
 
         const customer = await Customer.findByPk(id);
@@ -101,7 +112,14 @@ async function updateCustomer(req, res) {
             cusJob,
             cusOffice,
             cusStore,
-            cusEmail
+            cusEmail,
+            nic,
+            license,
+            guarantorName,
+            guarantorNic,
+            guarantorPhone,
+            guarantorAddress,
+            customerReview
         });
 
         res.status(200).json(customer);

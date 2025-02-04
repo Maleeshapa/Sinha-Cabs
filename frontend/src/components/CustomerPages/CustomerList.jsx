@@ -14,7 +14,7 @@ const CustomerList = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [deleteRowIndex, setDeleteRowIndex] = useState(null);
 
-  const columns = ['#', 'Customer Code', 'Name', 'Job', 'Office Name', 'Address', 'Phone Number', 'Email', 'Store'];
+  const columns = ['#', 'Name', 'Phone Number', 'Nic', 'License', 'Job', 'Address', 'Guarantor Name', 'Guarantor Nic', 'Guarantor Phone', 'Guarantor Address', 'Customer Review'];
 
   useEffect(() => {
     fetchCustomer();
@@ -22,31 +22,34 @@ const CustomerList = () => {
 
   const fetchCustomer = async () => {
     try {
-      const response = await fetch(`${config.BASE_URL}/customers`);
-      if (!response.ok) {
-        setError('Failed to fetch Customer list');
-        return;
-      }
-      const customers = await response.json();
+        const response = await fetch(`${config.BASE_URL}/customers`);
+        if (!response.ok) {
+            setError('Failed to fetch Customer list');
+            return;
+        }
+        const customers = await response.json();
 
-      const formattedData = customers.map(cus => [
-        cus.cusId,
-        cus.cusCode,
-        cus.cusName,
-        cus.cusJob,
-        cus.cusOffice,
-        cus.cusAddress,
-        cus.cusPhone,
-        cus.cusEmail,
-        cus.cusStore,
-      ]);
-      setData(formattedData);
-      setIsLoading(false);
+        const formattedData = customers.map(cus => [
+            cus.cusId,
+            cus.cusName,
+            cus.cusPhone,
+            cus.nic,
+            cus.license,
+            cus.cusJob,
+            cus.cusAddress,
+            cus.guarantorName,
+            cus.guarantorNic,
+            cus.guarantorPhone,
+            cus.guarantorAddress,
+            cus.customerReview,
+        ]);
+        setData(formattedData);
+        setIsLoading(false);
     } catch (err) {
-      setError(err.message);
-      setIsLoading(false);
+        setError(err.message);
+        setIsLoading(false);
     }
-  };
+};
 
   const handleDelete = async () => {
     try {
@@ -77,16 +80,21 @@ const CustomerList = () => {
     const selectedCusData = data[rowIndex];
     setSelectedCus({
       cusId: selectedCusData[0],
-      cusName: selectedCusData[2],
-      cusJob: selectedCusData[3],
-      cusOffice: selectedCusData[4],
-      cusAddress: selectedCusData[5],
-      cusPhone: selectedCusData[6],
-      cusEmail: selectedCusData[7],
-      cusStore: selectedCusData[8],
+      cusName: selectedCusData[1],
+      cusPhone: selectedCusData[2],
+      nic: selectedCusData[3],
+      license: selectedCusData[4],
+      cusJob: selectedCusData[5],
+      cusAddress: selectedCusData[6],
+      guarantorName: selectedCusData[7],
+      guarantorNic: selectedCusData[8],
+      guarantorPhone: selectedCusData[9],
+      guarantorAddress: selectedCusData[10],
+      customerReview: selectedCusData[11],
     });
     setModalIsOpen(true);
   };
+  
 
   const openModal = () => {
     setSelectedCus(null);
@@ -105,11 +113,7 @@ const CustomerList = () => {
     <div>
       <div className="scrolling-container">
         <h4>Customer List</h4>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
+       
           <Table
             data={data}
             columns={columns}
@@ -122,7 +126,7 @@ const CustomerList = () => {
             title={title}
             invoice={invoice}
           />
-        )}
+        
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}

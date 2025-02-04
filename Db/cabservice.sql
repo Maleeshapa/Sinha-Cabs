@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2025 at 09:07 PM
+-- Generation Time: Feb 04, 2025 at 09:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `categoryId` int(11) NOT NULL,
   `categoryName` varchar(255) NOT NULL,
-  `categoryType` varchar(100) NOT NULL,
+  `categoryType` varchar(100) DEFAULT NULL,
   `categoryStatus` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
@@ -39,8 +39,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`categoryId`, `categoryName`, `categoryType`, `categoryStatus`) VALUES
-(1, 'cat 1', 'cat', 'In stock'),
-(2, 'cat 2', 'gold', 'In stock');
+(1, 'Car', NULL, 'In stock'),
+(2, 'Van', NULL, 'In stock');
 
 -- --------------------------------------------------------
 
@@ -144,21 +144,23 @@ CREATE TABLE `customer` (
   `cusJob` varchar(255) NOT NULL,
   `cusOffice` varchar(255) NOT NULL,
   `cusStore` varchar(255) NOT NULL,
-  `cusEmail` varchar(255) DEFAULT NULL
+  `cusEmail` varchar(255) DEFAULT NULL,
+  `nic` varchar(255) DEFAULT NULL,
+  `license` varchar(255) DEFAULT NULL,
+  `guarantorName` varchar(255) DEFAULT NULL,
+  `guarantorNic` varchar(255) DEFAULT NULL,
+  `guarantorPhone` varchar(255) DEFAULT NULL,
+  `guarantorAddress` varchar(255) DEFAULT NULL,
+  `customerReview` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cusId`, `cusName`, `cusCode`, `cusAddress`, `cusPhone`, `cusJob`, `cusOffice`, `cusStore`, `cusEmail`) VALUES
-(5, 'Buddhika', 'cus001', 'kandy', '1234567890', 'no job', 'Abc', 'haman', 'buddhika@gmail.com'),
-(6, 'kavindu  lakshika senerath mathra hunna', 'cus002', 'Hunnasgiriya para kandy mathara  kandy matara ookokokok', '1234567895', 'kada himiya', 'kavindu stores', 'terra', 'kavindu@gmail.com'),
-(8, 'maleesha', 'cus004', 'katugasthota', '1234567823', 'accounting ex', 'avcd', 'colkan', NULL),
-(10, 'vidun jetman', 'cus001', 'napane', '1234567897', 'bank', 'banks', 'colkan', NULL),
-(11, 'branch 2', 'cus001', 'sssq', '1234567894', 'bhalla', 'Abc', 'colkan', NULL),
-(12, 'sad', 'CUS005', 'hunga', '1234557890', 'teach', 'school', 'colkan', 'test@test.com'),
-(13, 'ty', 'CUS006', 'y', '1111111111111111111 ext', 'ty', 'ty', 'terra', 'ty@gmail');
+INSERT INTO `customer` (`cusId`, `cusName`, `cusCode`, `cusAddress`, `cusPhone`, `cusJob`, `cusOffice`, `cusStore`, `cusEmail`, `nic`, `license`, `guarantorName`, `guarantorNic`, `guarantorPhone`, `guarantorAddress`, `customerReview`) VALUES
+(6, 'kavindu  Z', 'cus002', 'Hunnasgiriya Z', '1234567895 Z', 'kada Z', 'kavindu stores', 'terra', 'kavindu@gmail.com', 'nicZ', 'liceneZ', 'gZ', 'gnicZ', 'g118', 'gadd', 'goodd'),
+(14, 'test', 'CUS003', 'kandy', '1', 'SE', '', '', NULL, '123456789v', '987654321', 'abc', '2222222222v', '118', 'katu', 'Good');
 
 -- --------------------------------------------------------
 
@@ -262,10 +264,8 @@ INSERT INTO `invoice` (`invoiceId`, `invoiceNo`, `invoiceDate`, `status`, `store
 (37, '1507', '2025-01-29 17:23:51', 'invoice', 'terra', '', NULL, 6, 0, 0, 'false', 'false'),
 (38, '1508', '2025-01-29 17:25:08', 'invoice', 'terra', '', NULL, 6, 1, 1, 'false', 'false'),
 (39, '1509', '2025-01-29 14:17:43', 'delivery', 'terra', '', NULL, 6, 1, 3, 'false', 'false'),
-(40, '1510', '2025-01-29 15:06:26', 'invoice', 'colkan', '', NULL, 8, 1, 1, 'false', 'false'),
 (41, '1511', '2025-01-29 17:23:31', 'invoice', 'terra', 'one', NULL, 6, 1, 1, 'false', 'false'),
 (42, '1512', '2025-01-31 17:13:17', 'invoice', 'terra', '', NULL, 6, 1, 1, 'false', 'false'),
-(43, '1513', '2025-01-31 17:13:37', 'invoice', 'colkan', '', NULL, 8, 1, 1, 'false', 'true'),
 (44, '1514', '2025-02-01 19:42:32', 'invoice', 'terra', '', NULL, 6, 1, 1, 'false', 'false'),
 (45, '1515', '2025-02-01 19:55:19', 'invoice', 'terra', '', NULL, 6, 1, 1, 'false', 'false');
 
@@ -290,31 +290,6 @@ CREATE TABLE `invoiceproduct` (
   `invoiceProductStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `invoiceproduct`
---
-
-INSERT INTO `invoiceproduct` (`id`, `invoiceId`, `invoiceNo`, `productId`, `stockId`, `invoiceQty`, `sendQty`, `deliverdQty`, `discount`, `unitAmount`, `totalAmount`, `invoiceProductStatus`) VALUES
-(38, 30, '1502', 1, 55, 1, -3, 1, 0, 100, 100, 'notDelivered'),
-(39, 31, '1503', 1, 55, 15, 14, 1, 0, 10000, 150000, 'notDelivered'),
-(43, 32, '1504', 1, 55, 1, 0, 1, 0, 100, 100, 'notDelivered'),
-(44, 34, '1505', 1, 55, 10, 10, 0, 0, 100, 1000, 'notDelivered'),
-(45, 34, '1505', 7, 57, 10, 10, 0, 0, 1500, 1500, 'notDelivered'),
-(46, 35, '1506', 1, 55, 10, 10, 0, 10, 100, 1000, 'invoice'),
-(47, 35, '1506', 1, 55, 10, 10, 0, 20, 50, 500, 'invoice'),
-(48, 37, '1507', 1, 55, 1, 1, 0, 0, 100, 100, 'invoice'),
-(49, 38, '1508', 1, 55, 10, 10, 0, 0, 100, 1000, 'invoice'),
-(50, 39, '1509', 1, 55, 1, 0, 1, 0, 100, 100, 'notDelivered'),
-(51, 40, '1510', 1, 55, 10, 10, 0, 0, 100, 1000, 'invoice'),
-(52, 40, '1510', 7, 57, 15, 15, 0, 0, 100, 1500, 'invoice'),
-(53, 41, '1511', 1, 55, 12, 12, 0, 0, 100, 1200, 'invoice'),
-(54, 41, '1511', 7, 57, 25, 25, 0, 0, 100, 2500, 'invoice'),
-(55, 42, '1512', 1, 55, 1, 1, 0, 0, 100, 100, 'invoice'),
-(56, 43, '1513', 1, 55, 1, 1, 0, 0, 100, 100, 'invoice'),
-(57, 44, '1514', 1, 55, 1, 1, 0, 0, 100, 100, 'invoice'),
-(58, 44, '1514', 7, 57, 1, 1, 0, 0, 1500, 1500, 'invoice'),
-(59, 45, '1515', 1, 55, 1, 1, 0, 0, 100, 100, 'invoice');
-
 -- --------------------------------------------------------
 
 --
@@ -338,21 +313,6 @@ CREATE TABLE `products` (
   `category_categoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`productId`, `productName`, `productCode`, `productUnit`, `productDiscount`, `productBuyingPrice`, `productSellingPrice`, `productWarranty`, `productProfit`, `productEmi`, `productDescription`, `productImage`, `productStatus`, `category_categoryId`) VALUES
-(1, 'product 1', 'p1', '10', NULL, 109, 109, '5 Months', 20, NULL, 'ss', NULL, 'In stock', 1),
-(2, 'product 2', 'p2', '10', NULL, 120, 120, '3 Months', 0, NULL, 'gg', NULL, 'In stock', 1),
-(3, 'product 3', 'p3', '10', NULL, 1002, 90, '10 Months', -902, NULL, '100', NULL, 'In stock', 2),
-(6, 'product 4', 'p4', '10', NULL, 100, 90, '6 Months', -10, NULL, '', NULL, 'In stock', 1),
-(7, 'LED Lights Sample', 'l1', '', NULL, 1100, 1500, '1', 400, NULL, 'qweqweq', NULL, 'In stock', 1),
-(8, 'wer', 'ewe', '', NULL, 300, 300, '', 0, NULL, '', 'http://localhost:5000/uploads/products/wer_1736601983607.png', 'In stock', 2),
-(10, 'LED Lights Sample 2', 'l2', '12', NULL, 100, 1000, '12', 900, NULL, 'sefsef', NULL, 'In stock', 1),
-(11, 'cart', 'cart', '10', NULL, 100, 100, '12', 0, NULL, 'description', 'http://localhost:5000/uploads/products/cart_1737567233027.png', 'In stock', 1),
-(12, 'ggg', 'gg', '', NULL, 600, 1000, '', 400, NULL, '', NULL, 'In stock', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -366,16 +326,6 @@ CREATE TABLE `returnitems` (
   `user_userId` int(11) NOT NULL,
   `invoice_invoiceId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `returnitems`
---
-
-INSERT INTO `returnitems` (`returnItemId`, `returnItemDate`, `store_storeId`, `user_userId`, `invoice_invoiceId`) VALUES
-(38, '2025-01-28 11:00:00', 1, 1, 30),
-(39, '2025-01-28 11:00:00', 1, 1, 30),
-(40, '2025-01-28 11:00:00', 1, 1, 30),
-(41, '2025-01-28 11:00:00', 1, 1, 30);
 
 -- --------------------------------------------------------
 
@@ -395,13 +345,6 @@ CREATE TABLE `returnproducts` (
   `returnItemId` int(11) NOT NULL,
   `productId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `returnproducts`
---
-
-INSERT INTO `returnproducts` (`returnProductId`, `returnQty`, `returnAmount`, `returnItemType`, `returnDate`, `returnNote`, `stockId`, `invoiceProductId`, `returnItemId`, `productId`) VALUES
-(16, 1, 100, 'Refund', '2025-01-28 11:00:00', '', 55, 38, 41, 1);
 
 -- --------------------------------------------------------
 
@@ -424,19 +367,6 @@ CREATE TABLE `stock` (
   `supplier_supplierId` int(11) NOT NULL,
   `category_categoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `stock`
---
-
-INSERT INTO `stock` (`stockId`, `stockName`, `unitPrice`, `stockPrice`, `stockQty`, `stockDate`, `mfd`, `exp`, `stockDescription`, `stockStatus`, `products_productId`, `supplier_supplierId`, `category_categoryId`) VALUES
-(55, 'stock 1', 100, 110000, 1011, '2025-01-24 14:54:00', NULL, NULL, NULL, 'In Stock', 1, 1, 1),
-(56, 'stock 1', 50, 5000, 100, '2025-01-24 15:02:00', NULL, NULL, NULL, 'In Stock', 1, 1, 1),
-(57, 'test stock', 100, 10000, 57, '2025-01-25 13:17:00', NULL, NULL, NULL, 'In Stock', 7, 1, 1),
-(58, 'stock 1', NULL, 0, 0, '2025-01-29 14:13:00', NULL, NULL, NULL, 'In Stock', 1, 1, 1),
-(59, 'stock 1', NULL, 0, 0, '2025-01-29 14:13:00', NULL, NULL, NULL, 'In Stock', 1, 1, 1),
-(60, 'stock 1', NULL, 0, 0, '2025-01-29 14:13:00', NULL, NULL, NULL, 'In Stock', 1, 1, 1),
-(61, 'stock 1', NULL, 0, 0, '2025-01-29 14:13:00', NULL, NULL, NULL, 'In Stock', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -489,9 +419,7 @@ CREATE TABLE `store` (
 --
 
 INSERT INTO `store` (`storeId`, `storeName`, `storeAddress`, `storeStatus`) VALUES
-(1, 'terra', 'kandy', 'Active'),
-(2, 'colkan', 'kolkan', 'Active'),
-(3, 'haman', 'haman', 'Active');
+(1, 'Sinha Rent a car and cab service ', 'Katugastota', 'Active');
 
 -- --------------------------------------------------------
 
@@ -573,26 +501,6 @@ CREATE TABLE `transaction` (
   `cusId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
---
--- Dumping data for table `transaction`
---
-
-INSERT INTO `transaction` (`transactionId`, `dateTime`, `transactionType`, `totalAmount`, `price`, `discount`, `paid`, `due`, `OgDue`, `chequeDate`, `note`, `invoice_invoiceId`, `user_userId`, `cusId`) VALUES
-(23, '2025-01-31 17:11:41', 'cash', 100, 100, 0, 100, 0, 0, '2025-01-31', '', 30, 1, 6),
-(24, '2025-01-31 17:00:34', 'credit', 150000, 150000, 0, 0, 150000, 0, '2025-01-31', '', 31, 1, 6),
-(25, '2025-01-26 14:52:43', '', 100, 1000, 0, 0, 1000, 0, '2025-01-26', '', 32, 1, 6),
-(27, '2025-01-26 16:38:30', '', 1000, 2500, 0, 0, 2500, 0, '2025-01-26', '', 34, 1, 6),
-(28, '2025-01-26 20:02:53', 'cash', 1500, 1200, 300, 1200, 0, 0, '2025-01-27', '', 35, 1, 6),
-(29, '2025-01-29 17:23:52', 'cash', 100, 100, 0, 0, 100, 0, '2025-01-29', '', 37, 1, 6),
-(30, '2025-01-29 17:25:08', 'bank', 1000, 1000, 0, 0, 1000, 0, '2025-01-29', '', 38, 1, 6),
-(31, '2025-01-29 14:17:43', 'credit', 100, 100, 0, 0, 100, 0, '2025-01-29', '', 39, 1, 6),
-(32, '2025-01-29 15:06:26', 'credit', 2500, 2500, 0, 0, 2500, 0, '2025-01-29', '', 40, 1, 8),
-(33, '2025-01-29 17:23:31', 'credit', 3700, 3700, 0, 0, 3700, 0, '2025-01-29', '', 41, 1, 6),
-(34, '2025-01-31 17:13:17', 'credit', 100, 100, 0, 0, 100, 0, '2025-01-31', '', 42, 1, 6),
-(35, '2025-01-31 17:13:37', 'credit', 100, 100, 0, 0, 100, 0, '2025-01-31', '', 43, 1, 8),
-(36, '2025-02-01 19:42:32', 'credit', 100, 1600, 9, 0, 1600, 1600, '2025-02-02', '', 44, 1, 6),
-(37, '2025-02-01 19:55:20', 'credit', 100, 100, 0, 0, 100, 100, '2025-02-02', '', 45, 1, 6);
-
 -- --------------------------------------------------------
 
 --
@@ -622,10 +530,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userId`, `userTitle`, `userFullName`, `userName`, `userPassword`, `userType`, `userEmail`, `userNIC`, `userSecondTP`, `userTP`, `userAddress`, `userImage`, `userStatus`, `store_storeId`, `is_hidden`) VALUES
-(1, 'Mr.', 'abc', 'abc', '$2b$10$1R9ZL5CZUuWfUJsFaDTxeuQqbzaXaO7eRnxVQ27J/6Kqjr2uS3KMe', 'Admin', 'buddhika@gmail.com', '123456789V', '12334567890', '1234567890', 'ccc', NULL, 'Active', 1, 0),
-(2, 'Mr.', 'maleesha', 'maleesha', '$2b$10$DdVcqL6K7es6nZsGhfIlveZFfI14GmalUirHJitqD6sY/oG4n2CMC', 'User', 'kunage@gmail.com', '00000000V', '12334567890', '1234567890', 'xxx', NULL, 'Active', 1, 0),
 (4, 'Mr.', 'master', 'master', '$2b$10$YOYbjZyy3L4nBG/QLXHT5OZGqyFj80naF.fLxwH7nXRPHld6CjdCC', 'Admin', 'master@gmail.com', '123456729V', '12334567890', '1234567890', 'xxx', NULL, 'Active', 1, 1),
-(5, 'Mr.', 'maleesha', 'maleeshapa', '$2b$10$SQb/n5CQrtiyuE/ABCIVoO1noHx9zPc53rEVlC7WGZ9VkFBu4Qo4m', 'Admin', 'buddhika@gmail.com', '2002832992', '12334567890', '1234567890', 'kandy', 'http://localhost:5000/uploads/users/maleeshapa_1735067279096.jpg', 'Active', 1, 1);
+(5, 'Mr.', 'maleesha', 'maleeshapa', '$2b$10$SQb/n5CQrtiyuE/ABCIVoO1noHx9zPc53rEVlC7WGZ9VkFBu4Qo4m', 'Admin', 'buddhika@gmail.com', '2002832992', '12334567890', '1234567890', 'kandy', 'http://localhost:5000/uploads/users/maleeshapa_1735067279096.jpg', 'Active', 1, 1),
+(6, 'Mr.', 'test', 'test', '$2b$10$Q.FEvek9ohgMdXgJlQoOwOz09N9c0Hu1xyEXyL0Y2cUa4fxlErDDG', 'Admin', 'test@gmail.com', '553456789v', '777', '555', '416/A', 'http://localhost:5000/uploads/users/test_1738601571034.jpg', 'Active', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -815,7 +722,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `chequedata`
@@ -839,7 +746,7 @@ ALTER TABLE `costing_headers`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cusId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `cusId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `deliverynote`
@@ -947,7 +854,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

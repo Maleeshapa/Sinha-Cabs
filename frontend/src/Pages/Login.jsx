@@ -34,44 +34,128 @@ function Login() {
     }));
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+  //   setProcessing(true);
+
+  //   const postData = {
+  //     userName: formData.userName,
+  //     userPassword: formData.password,
+  //   };
+
+  //   try {
+  //     const response = await fetch(`${config.BASE_URL}/userLogin`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(postData),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (!response.ok || data.message_type === "error") {
+  //       setMessage(data.message || "An error occurred during login.");
+  //       setAlertType("alert alert-danger");
+  //       setShowAlert(true);
+  //       return;
+  //     }
+
+  //     const { userName, userEmail, userStatus } = data.user;
+  //     const token = data.token;
+
+  //     localStorage.setItem("userName", userName);
+  //     localStorage.setItem("userEmail", userEmail);
+  //     localStorage.setItem("userStatus", userStatus);
+  //     localStorage.setItem("token", token);
+
+  //     navigate('/');
+
+  //   } catch (error) {
+  //     setError("Failed to log in. Please check your credentials.");
+  //     console.error(error);
+  //   } finally {
+  //     setProcessing(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setProcessing(true);
-
+  
     const postData = {
       userName: formData.userName,
       userPassword: formData.password,
     };
-
+  
     try {
-      const response = await fetch(`${config.BASE_URL}/userLogin`, {
+      // First, check the status from the 'Switch' table
+      const statusResponse = await fetch(`${config.BASE_URL}/api/switch`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const statusData = await statusResponse.json();
+  
+      if (!statusResponse.ok) {
+        setMessage(statusData.message || "An error occurred while checking status.");
+        setAlertType("alert alert-danger");
+        setShowAlert(true);
+        return;
+      }
+  
+      // Check if the status is false (cannot login)
+      if (statusData.status === false) { // Use `false` for BOOLEAN
+        setMessage( <>
+          Deposit Monthly Subscription to access 
+          <br />
+          නැවත පිවිසීමට මාසික ගාස්තුව ගෙවන්න     
+          <br /><br />
+          74571076
+          <br />
+          BOC
+          <br />
+          Katugasthota
+          <br />
+          W.P.K.M.M.Pathirana
+        </>);
+        setAlertType("alert alert-danger");
+        setShowAlert(true);
+        return;
+      }
+  
+      // If status is true, proceed with the login
+      const loginResponse = await fetch(`${config.BASE_URL}/userLogin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(postData),
       });
-
-      const data = await response.json();
-
-      if (!response.ok || data.message_type === "error") {
-        setMessage(data.message || "An error occurred during login.");
+  
+      const loginData = await loginResponse.json();
+  
+      if (!loginResponse.ok || loginData.message_type === "error") {
+        setMessage(loginData.message || "An error occurred during login.");
         setAlertType("alert alert-danger");
         setShowAlert(true);
         return;
       }
-
-      const { userName, userEmail, userStatus } = data.user;
-      const token = data.token;
-
+  
+      const { userName, userEmail, userStatus } = loginData.user;
+      const token = loginData.token;
+  
       localStorage.setItem("userName", userName);
       localStorage.setItem("userEmail", userEmail);
       localStorage.setItem("userStatus", userStatus);
       localStorage.setItem("token", token);
-
+  
       navigate('/');
-
+  
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
       console.error(error);
