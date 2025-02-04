@@ -11,9 +11,6 @@ const SupplierController = require("./controller/SupplerController");
 const UserController = require("./controller/UserController");
 const CategoryController = require("./controller/CategoryController");
 const ProductController = require("./controller/ProductController");
-const StockController = require("./controller/StockController");
-const StockPaymentController = require("./controller/StockPaymenTController");
-const StockHistoryController = require('./controller/StockHistoryController');
 const InvoiceController = require("./controller/InvoiceController");
 const TransactionController = require("./controller/TransactionController");
 const StoreController = require("./controller/StoreController");
@@ -30,7 +27,7 @@ const CostingController = require('./controller/CostingController');
 const ChequeController = require('./controller/ChequeController');
 const Transaction = require("./model/Transaction");
 const DueCustomerController = require("./controller/DueCustomerController");
-const SupplierPaymentController = require("./controller/SupplierPaymentController");
+// const SupplierPaymentController = require("./controller/SupplierPaymentController");
 
 const SwitchController = require('./controller/SwitchController');
 
@@ -70,10 +67,6 @@ app.put("/supplier/:id", SupplierController.updateSupplier);
 app.delete("/supplier/:id", SupplierController.deleteSupplier);
 app.get('/suppliers/suggestions', SupplierController.getSupplierSuggestions);
 
-//supplierPayment routes
-app.post("/supplierPayment", SupplierPaymentController.createSupplierPayment);
-app.get("/supplierPayments", SupplierPaymentController.getAllSupplierPayments);
-app.get("/supplerPayment/:stockPaymentId", SupplierPaymentController.getSupplierPaymentByStockPaymentId);
 
 //category routes
 app.post("/category", CategoryController.createCategory);
@@ -105,27 +98,6 @@ app.get('/product/codeOrName/:value', ProductController.getProductByCodeOrName);
 app.get('/products/suggestions', ProductController.getProductSuggestions);
 app.get('/product/image/:productCode', ProductController.getProductImageByCode);
 
-//stock routes
-app.post("/stock", StockController.createStock);
-app.get("/stocks", StockController.getAllStocks);
-app.get("/stock/:id", StockController.getStockById);
-app.get('/stock/product/:products_productId', StockController.getStockIdUsingProductId);
-app.put("/stock/:id", StockController.updateStock);
-app.delete("/stock/:id", StockController.deleteStock);
-app.get('/stock/supplier/:supplier_supplierId', StockController.getStockIdUsingSupplierId);
-
-//stockPayment routes
-app.post("/stockPayment", StockPaymentController.createStockPayment);
-app.get("/stockPayments", StockPaymentController.getAllStockPayments);
-app.get("/stockPayment/:id", StockPaymentController.getStockPaymentById);
-app.put("/stockPayment/:id", StockPaymentController.updateStockPayment);
-app.get('/stockPayments/dueCount', StockPaymentController.countDuePayments);
-app.get('/stockPayments/totalDues', StockPaymentController.totalDues);
-app.get('/stockPayments/:supplierId', StockPaymentController.getStockPaymentBySupplierId);
-app.get('/stockPayments/duePayments/:supplierId', StockPaymentController.countDuePaymentsBySupplier);
-app.get('/stockPayments/totalDues/:supplierId', StockPaymentController.totalDuesBySupplier);
-app.get('/stockPayment/stock/:stockId', StockPaymentController.getStockPaymentByStockId);
-
 //cheque routes
 app.post("/cheque", ChequeController.addCheque);
 app.get("/cheques", ChequeController.getAllCheques);
@@ -136,9 +108,6 @@ app.get("/clearedChequeTotal", ChequeController.getClearedChequeTotal);
 app.get('/pendingChequeTotal', ChequeController.getPendingChequeTotal);
 app.get('/cheques/supplier/:supplierId', ChequeController.getChequesBySupplierId);
 app.get('/cheques/pendingTotal/:supplierId', ChequeController.getPendingChequeTotalBySupplier)
-
-//Stock History routes
-app.get('/stockHistory', StockHistoryController.getAllStockHistory);
 
 //invoice routes
 app.post("/invoice", InvoiceController.createInvoice);
@@ -157,15 +126,15 @@ app.put('/updateDraft/:invoiceId', InvoiceController.updateInvoiceDraft)
 //invoiceProduct Route
 app.post('/invoiceProduct', InvoiceProductController.createInvoiceProduct);
 app.get('/invoiceProducts', InvoiceProductController.getAllInvoiceProducts);
-app.get('/invoiceProducts/:invoiceId', InvoiceProductController.getInvoiceById);
-app.delete('/invoiceProducts/:invoiceProductId', InvoiceProductController.deleteInvoiceProductbyId);
+// app.get('/invoiceProducts/:invoiceId', InvoiceProductController.getInvoiceById);
+app.delete('/invoiceProducts/:invoiceProductId', InvoiceProductController.deleteInvoiceProductById);
 // app.get('/invoiceProduct/:id', InvoiceProductController.getById);
-app.delete('/invoiceProduct/:invoiceId', InvoiceProductController.deleteInvoiceProduct);
-app.get('/invoiceProduct/:num', InvoiceProductController.getInvoiceProductsByNo);
-app.put('/invoiceProducts/:id', InvoiceProductController.updateInvoiceProductStatus);
-app.put('/invoiceProductsQty/:id', InvoiceProductController.updateInvoiceProductQty);
-app.put('/updateDeliveryNote/:id', InvoiceProductController.updateDeliveryNote);
-app.get('/invoiceProduct/stock/:stockId', InvoiceProductController.getInvoiceProductsByStockId);
+// app.delete('/invoiceProduct/:invoiceId', InvoiceProductController.deleteInvoiceProduct);
+// app.get('/invoiceProduct/:num', InvoiceProductController.getInvoiceProductsByNo);
+// app.put('/invoiceProducts/:id', InvoiceProductController.updateInvoiceProductStatus);
+// app.put('/invoiceProductsQty/:id', InvoiceProductController.updateInvoiceProductQty);
+// app.put('/updateDeliveryNote/:id', InvoiceProductController.updateDeliveryNote);
+// app.get('/invoiceProduct/stock/:stockId', InvoiceProductController.getInvoiceProductsByStockId);
 
 //due Customer Route
 app.post('/duecustomer', DueCustomerController.createDueCustomer);
@@ -225,7 +194,7 @@ app.delete("/expensesCat/:id", ExpensesCatController.deleteExpensesCat);
 
 //get reports
 app.get("/getReports", ReportController.getReports);
-app.get("/productStock", ProductNStockController.getStockReports);
+// app.get("/productStock", ProductNStockController.getStockReports);
 
 // //Costing routes
 app.post("/costing", CostingController.createCosting);

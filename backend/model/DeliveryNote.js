@@ -2,7 +2,6 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConfig");
 const Invoice = require('./Invoice')
 const Product = require("./Products");
-const Stock = require("./Stock");
 
 const DeliveryNote = sequelize.define(
     "DeliveryNote",
@@ -17,14 +16,6 @@ const DeliveryNote = sequelize.define(
             references: {
                 model: Product,
                 key: "productId",
-            },
-            allowNull: false,
-        },
-        stockId: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: Stock,
-                key: "stockId",
             },
             allowNull: false,
         },
@@ -69,10 +60,6 @@ const DeliveryNote = sequelize.define(
 DeliveryNote.belongsTo(Product, {
     foreignKey: "productId",
     as: "product",
-});
-DeliveryNote.belongsTo(Stock, {
-    foreignKey: "stockId",
-    as: "stock",
 });
 DeliveryNote.belongsTo(Invoice, {
     foreignKey: "invoiceId",

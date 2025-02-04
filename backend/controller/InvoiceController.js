@@ -1,8 +1,5 @@
 const Invoice = require("../model/Invoice");
-const Product = require("../model/Products");
-const Stock = require("../model/Stock");
 const Customer = require("../model/Customer");
-const Transaction = require("../model/Transaction")
 
 const multer = require('multer');
 const path = require('path');

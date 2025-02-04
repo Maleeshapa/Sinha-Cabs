@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../dbConfig');
-const StockPayment = require('./StockPayment');
 
 const SupplierPayment = sequelize.define('SupplierPayment', {
     payId: {
@@ -16,18 +15,10 @@ const SupplierPayment = sequelize.define('SupplierPayment', {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    stockPaymentId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-}, {
-    timestamps: false,
-    tableName: 'supplierpayments',
-});
-
-SupplierPayment.belongsTo(StockPayment, {
-    foreignKey: 'stockPaymentId',
-    as: 'stockPayment',
-});
+},
+    {
+        timestamps: false,
+        tableName: 'supplierpayments',
+    });
 
 module.exports = SupplierPayment;

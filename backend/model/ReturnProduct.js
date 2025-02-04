@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../dbConfig');
 const InvoiceProduct = require('./InvoiceProduct');
-const Stock = require('./Stock');
 const Return = require('./Return');
 const Product = require('./Products');
 
@@ -41,14 +40,6 @@ const ReturnProduct = sequelize.define(
             },
             allowNull: false,
         },
-        stockId: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: Stock,
-                key: "stockId",
-            },
-            allowNull: false,
-        },
         returnItemId: {
             type: DataTypes.INTEGER,
             references: {
@@ -73,7 +64,6 @@ const ReturnProduct = sequelize.define(
 );
 
 ReturnProduct.belongsTo(InvoiceProduct, { foreignKey: 'invoiceProductId', as: 'invoiceProduct' });
-ReturnProduct.belongsTo(Stock, { foreignKey: 'stockId', as: 'stock' });
 ReturnProduct.belongsTo(Return, { foreignKey: 'returnItemId', as: 'return' });
 ReturnProduct.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 

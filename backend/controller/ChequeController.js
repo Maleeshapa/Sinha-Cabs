@@ -1,5 +1,4 @@
 const Cheque = require('../model/Cheque');
-const StockPayment = require('../model/StockPayment');
 const Supplier = require('../model/Supplier');
 const { Sequelize } = require('sequelize');
 const { fn, col } = Sequelize;
@@ -16,17 +15,12 @@ async function addCheque(req, res) {
         const createdCheques = [];
 
         for (const cheque of cheques) {
-            const { chequeNumber, chequeAmount, issuedDate, chequeDate, chequeStatus, supplierId, stockPaymentId } = cheque;
+            const { chequeNumber, chequeAmount, issuedDate, chequeDate, chequeStatus, supplierId, } = cheque;
 
             // Validate related entities
             const supplier = await Supplier.findByPk(supplierId);
             if (!supplier) {
                 return res.status(400).json({ message: `Invalid supplier ID: ${supplierId}` });
-            }
-
-            const stockPayment = await StockPayment.findByPk(stockPaymentId);
-            if (!stockPayment) {
-                return res.status(400).json({ message: `Invalid stockPayment ID: ${stockPaymentId}` });
             }
 
             const existingChequeNum = await Cheque.findOne({ where: { chequeNumber } });
@@ -41,7 +35,6 @@ async function addCheque(req, res) {
                 chequeDate,
                 chequeStatus: 'Pending',
                 supplierId,
-                stockPaymentId,
             });
 
             createdCheques.push(newCheque);
@@ -60,7 +53,6 @@ async function getAllCheques(req, res) {
         const cheques = await Cheque.findAll({
             include: [
                 { model: Supplier, as: 'supplier' },
-                { model: StockPayment, as: 'stockPayment' },
             ],
         });
 
@@ -81,7 +73,6 @@ async function getChequeById(req, res) {
         const cheque = await Cheque.findByPk(chequeId, {
             include: [
                 { model: Supplier, as: 'supplier' },
-                { model: StockPayment, as: 'stockPayment' },
             ],
         });
         if (!cheque) {
@@ -96,7 +87,7 @@ async function getChequeById(req, res) {
 async function updateCheque(req, res) {
     try {
         const { id } = req.params;
-        const { chequeNumber, chequeAmount, chequeDate, chequeStatus, supplierId, stockPaymentId } = req.body;
+        const { chequeNumber, chequeAmount, chequeDate, chequeStatus, supplierId } = req.body;
 
         // Find the existing cheque by ID
         const chequeData = await Cheque.findByPk(id);
@@ -111,7 +102,6 @@ async function updateCheque(req, res) {
             chequeDate,
             chequeStatus,
             supplierId,
-            stockPaymentId,
         });
 
         res.status(200).json(chequeData);
