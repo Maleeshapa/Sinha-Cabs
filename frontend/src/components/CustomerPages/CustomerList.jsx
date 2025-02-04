@@ -14,7 +14,7 @@ const CustomerList = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [deleteRowIndex, setDeleteRowIndex] = useState(null);
 
-  const columns = ['#', 'Name', 'Phone Number', 'Nic', 'License', 'Job', 'Address', 'Customer Review'];
+  const columns = ['#', 'Name', 'Phone Number', 'Nic', 'License', 'Job', 'Address', 'Customer Review', 'Customer Description'];
 
   useEffect(() => {
     fetchCustomer();
@@ -38,6 +38,7 @@ const CustomerList = () => {
             cus.cusJob,
             cus.cusAddress,
             cus.customerReview,
+            cus.customerDescription,
         ]);
         setData(formattedData);
         setIsLoading(false);
@@ -83,6 +84,7 @@ const CustomerList = () => {
     cusJob: selectedCusData[5],
     cusAddress: selectedCusData[6],
     customerReview: selectedCusData[7],
+    customerDescription: selectedCusData[8],
   });
   setModalIsOpen(true);
 };

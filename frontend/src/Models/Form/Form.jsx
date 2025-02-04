@@ -154,7 +154,7 @@
 //               value={formData.address}
 //               onChange={handleChange}
 //               placeholder="Enter Address"
-              
+
 //               aria-describedby={formErrors.address ? 'address-error' : undefined}
 //             />
 //             {formErrors.address && <span id="address-error" className="error-text">{formErrors.address}</span>}
@@ -169,7 +169,7 @@
 //               value={formData.phone}
 //               onChange={handleChange}
 //               placeholder="Enter Phone"
-              
+
 //               aria-describedby={formErrors.phone ? 'phone-error' : undefined}
 //             />
 //             {formErrors.phone && <span id="phone-error" className="error-text">{formErrors.phone}</span>}
@@ -184,7 +184,7 @@
 //               value={formData.email}
 //               onChange={handleChange}
 //               placeholder="Enter Email"
-              
+
 //               aria-describedby={formErrors.email ? 'phone-error' : undefined}
 //             />
 //             {formErrors.email && <span id="email-error" className="error-text">{formErrors.email}</span>}
@@ -218,217 +218,236 @@
 
 
 import React, { useState, useEffect } from 'react';
- import './Form.css';
- import config from '../../config';
+import './Form.css';
+import config from '../../config';
 
 const Form = ({ closeModal, onSave, cus }) => {
   const [formErrors, setFormErrors] = useState({});
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
-      name: '',
-      phone: '',
-      nic: '',
-      license: '',
-      jobPosition: '',
-      address: '',
-      customerReview: '',
+    name: '',
+    phone: '',
+    nic: '',
+    license: '',
+    jobPosition: '',
+    address: '',
+    customerReview: '',
+    customerDescription: '',
   });
 
   useEffect(() => {
-      if (cus) {
-          setFormData({
-              name: cus.cusName || '',
-              phone: cus.cusPhone || '',
-              nic: cus.nic || '',
-              license: cus.license || '',
-              jobPosition: cus.cusJob || '',
-              address: cus.cusAddress || '',
-              customerReview: cus.customerReview || '',
-          });
-      }
+    if (cus) {
+      setFormData({
+        name: cus.cusName || '',
+        phone: cus.cusPhone || '',
+        nic: cus.nic || '',
+        license: cus.license || '',
+        jobPosition: cus.cusJob || '',
+        address: cus.cusAddress || '',
+        customerReview: cus.customerReview || '',
+        customerDescription: cus.customerDescription || '',
+      });
+    }
   }, [cus]);
 
   const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
 
-      if (formErrors[name]) {
-          setFormErrors({ ...formErrors, [name]: '' });
-      }
+    if (formErrors[name]) {
+      setFormErrors({ ...formErrors, [name]: '' });
+    }
   };
 
   const validate = () => {
-      const errors = {};
+    const errors = {};
 
-      if (!formData.name.trim()) {
-          errors.name = 'Name is required.';
-      }
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required.';
+    }
 
-      if (!formData.phone.trim()) {
-          errors.phone = 'Phone number is required.';
-      }
+    if (!formData.phone.trim()) {
+      errors.phone = 'Phone number is required.';
+    }
 
-      if (!formData.address.trim()) {
-          errors.address = 'Address is required.';
-      }
+    if (!formData.address.trim()) {
+      errors.address = 'Address is required.';
+    }
 
-      return errors;
+    return errors;
   };
 
   const handleSubmitCus = async (e) => {
-      e.preventDefault();
-      const errors = validate();
-      if (Object.keys(errors).length > 0) {
-          setFormErrors(errors);
-          return;
+    e.preventDefault();
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    const customerData = {
+      cusName: formData.name,
+      cusPhone: formData.phone,
+      nic: formData.nic,
+      license: formData.license,
+      cusJob: formData.jobPosition,
+      cusAddress: formData.address,
+      customerReview: formData.customerReview,
+      customerDescription: formData.customerDescription,
+    };
+
+    try {
+      const url = cus
+        ? `${config.BASE_URL}/customer/${cus.cusId}`
+        : `${config.BASE_URL}/customer`;
+      const method = cus ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(customerData),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        setError(cus ? 'Successfully Updated!' : 'Successfully Created!');
+        onSave(customerData);
+        closeModal();
+      } else {
+        setError(responseData.error || 'An error occurred while saving the customer.');
       }
-
-      const customerData = {
-          cusName: formData.name,
-          cusPhone: formData.phone,
-          nic: formData.nic,
-          license: formData.license,
-          cusJob: formData.jobPosition,
-          cusAddress: formData.address,
-          customerReview: formData.customerReview,
-      };
-
-      try {
-          const url = cus
-              ? `${config.BASE_URL}/customer/${cus.cusId}`
-              : `${config.BASE_URL}/customer`;
-          const method = cus ? 'PUT' : 'POST';
-
-          const response = await fetch(url, {
-              method,
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(customerData),
-          });
-
-          const responseData = await response.json();
-
-          if (response.ok) {
-              setError(cus ? 'Successfully Updated!' : 'Successfully Created!');
-              onSave(customerData);
-              closeModal();
-          } else {
-              setError(responseData.error || 'An error occurred while saving the customer.');
-          }
-      } catch (error) {
-          setError('An error occurred while saving the customer.');
-      }
+    } catch (error) {
+      setError('An error occurred while saving the customer.');
+    }
   };
 
   return (
-      <div style={{ placeItems: 'center' }}>
-          <h2>{cus ? 'Edit Customer' : 'New Customer'}</h2>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleSubmitCus} className="form-container" autoComplete='off'>
-              <div className="form-group-1">
-                  <div className="form-group">
-                      <label htmlFor="name">Name <span>*</span></label>
-                      <input
-                          id="name"
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="Enter Full Name"
-                          required
-                          aria-describedby={formErrors.name ? 'name-error' : undefined}
-                      />
-                      {formErrors.name && <span id="name-error" className="error-text">{formErrors.name}</span>}
-                  </div>
+    <div style={{ placeItems: 'center' }}>
+      <h2>{cus ? 'Edit Customer' : 'New Customer'}</h2>
+      {error && <div className="error-message">{error}</div>}
+      <form onSubmit={handleSubmitCus} className="form-container" autoComplete='off'>
+        <div className="form-group-1">
+          <div className="form-group">
+            <label htmlFor="name">Name <span>*</span></label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter Full Name"
+              required
+              aria-describedby={formErrors.name ? 'name-error' : undefined}
+            />
+            {formErrors.name && <span id="name-error" className="error-text">{formErrors.name}</span>}
+          </div>
 
-                  <div className="form-group">
-                      <label htmlFor="phone">Phone <span>*</span></label>
-                      <input
-                          id="phone"
-                          type="text"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="Enter Phone"
-                          required
-                          aria-describedby={formErrors.phone ? 'phone-error' : undefined}
-                      />
-                      {formErrors.phone && <span id="phone-error" className="error-text">{formErrors.phone}</span>}
-                  </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone <span>*</span></label>
+            <input
+              id="phone"
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter Phone"
+              required
+              aria-describedby={formErrors.phone ? 'phone-error' : undefined}
+            />
+            {formErrors.phone && <span id="phone-error" className="error-text">{formErrors.phone}</span>}
+          </div>
 
-                  <div className="form-group">
-                      <label htmlFor="nic">NIC</label>
-                      <input
-                          id="nic"
-                          type="text"
-                          name="nic"
-                          value={formData.nic}
-                          onChange={handleChange}
-                          placeholder="Enter NIC"
-                      />
-                  </div>
+          <div className="form-group">
+            <label htmlFor="nic">NIC</label>
+            <input
+              id="nic"
+              type="text"
+              name="nic"
+              value={formData.nic}
+              onChange={handleChange}
+              placeholder="Enter NIC"
+            />
+          </div>
 
-                  <div className="form-group">
-                      <label htmlFor="license">License</label>
-                      <input
-                          id="license"
-                          type="text"
-                          name="license"
-                          value={formData.license}
-                          onChange={handleChange}
-                          placeholder="Enter License"
-                      />
-                  </div>
+          <div className="form-group">
+            <label htmlFor="license">License</label>
+            <input
+              id="license"
+              type="text"
+              name="license"
+              value={formData.license}
+              onChange={handleChange}
+              placeholder="Enter License"
+            />
+          </div>
 
-                  <div className="form-group">
-                      <label htmlFor="jobPosition">Job Position</label>
-                      <input
-                          id="jobPosition"
-                          type="text"
-                          name="jobPosition"
-                          value={formData.jobPosition}
-                          onChange={handleChange}
-                          placeholder="Enter Job Position"
-                      />
-                  </div>
+          <div className="form-group">
+            <label htmlFor="jobPosition">Job Position</label>
+            <input
+              id="jobPosition"
+              type="text"
+              name="jobPosition"
+              value={formData.jobPosition}
+              onChange={handleChange}
+              placeholder="Enter Job Position"
+            />
+          </div>
 
-                  <div className="form-group">
-                      <label htmlFor="address">Address <span>*</span></label>
-                      <input
-                          id="address"
-                          type="text"
-                          name="address"
-                          value={formData.address}
-                          onChange={handleChange}
-                          placeholder="Enter Address"
-                          required
-                          aria-describedby={formErrors.address ? 'address-error' : undefined}
-                      />
-                      {formErrors.address && <span id="address-error" className="error-text">{formErrors.address}</span>}
-                  </div>
+          <div className="form-group">
+            <label htmlFor="address">Address <span>*</span></label>
+            <input
+              id="address"
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Enter Address"
+              required
+              aria-describedby={formErrors.address ? 'address-error' : undefined}
+            />
+            {formErrors.address && <span id="address-error" className="error-text">{formErrors.address}</span>}
+          </div>
 
-                  
+          <div className="form-group">
+            <label htmlFor="customerReview">Customer Review</label>
+            <select
+              id="customerReview"
+              name="customerReview"
+              value={formData.customerReview}
+              onChange={handleChange}
+              className="form-control"
+            >
+              <option value="">Select Review</option>
+              <option value="Good">Good</option>
+              <option value="Normal">Normal</option>
+              <option value="Bad">Bad</option>
+            </select>
+          </div>
 
-                  <div className="form-group">
-                      <label htmlFor="customerReview">Customer Review</label>
-                      <input
-                          id="customerReview"
-                          type="text"
-                          name="customerReview"
-                          value={formData.customerReview}
-                          onChange={handleChange}
-                          placeholder="Enter Customer Review"
-                      />
-                  </div>
+          {formData.customerReview && (
+            <div className="form-group">
+              <label htmlFor="customerDescription">Customer Description</label>
+              <input
+                id="customerDescription"
+                type="text"
+                name="customerDescription"
+                value={formData.customerDescription}
+                onChange={handleChange}
+                placeholder="Enter Customer Description"
+              />
+            </div>
+          )}
 
-                  <div className="form-actions">
-                      <button type="button" onClick={closeModal}>Close</button>
-                      <button type="submit">{cus ? 'Update' : 'Save Changes'}</button>
-                  </div>
-              </div>
-          </form>
-      </div>
+          <div className="form-actions">
+            <button type="button" onClick={closeModal}>Close</button>
+            <button type="submit">{cus ? 'Update' : 'Save Changes'}</button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
