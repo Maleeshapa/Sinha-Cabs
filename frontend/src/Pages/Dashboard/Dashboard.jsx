@@ -7,6 +7,7 @@ import CardFour from './CardFour';
 import config from '../../config';
 import Header from '../../components/SideBar/Header';
 import CardFive from './CardFive';
+import CardSix from './CardSix';
 
 const Dashboard = () => {
   const base_url = config.BASE_URL;
@@ -157,7 +158,14 @@ const Dashboard = () => {
               </div>
             </div> */}
 
-            <div className="col-lg-9 col-md-12 mb-4">
+            <div className="col-lg-3 col-md-12 mb-4">
+              <div className="h-100">
+                <CardSix
+                />
+              </div>
+            </div>
+
+            <div className="col-lg-6 col-md-12 mb-4">
               <div className="h-100">
                 <CardTwo
                   monthlyRevenue={reportData.monthlyRevenue}

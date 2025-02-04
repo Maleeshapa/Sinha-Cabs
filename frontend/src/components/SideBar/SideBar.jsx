@@ -153,7 +153,7 @@ const Sidebar = () => {
             path: '/expenses',
             submenus: [
                 { title: 'Enter Expenses', path: '/expenses/enter' },
-                { title: 'Create Category', path: '/expenses/create' },
+                // { title: 'Create Category', path: '/expenses/create' },
                 { title: 'Expenses History ', path: '/expenses/history'},
             ]
         },

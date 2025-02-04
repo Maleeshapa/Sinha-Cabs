@@ -32,8 +32,8 @@ const ExpensesHistory = () => {
     {expenses.map(expense => (
         <tr key={expense.expensesId}>
             <td>{expense.expensesId}</td>
-            <td>{expense.expensesCategory ? expense.expensesCategory.expensesCatName : '-'}</td>
-            <td>{expense.product ? expense.product.productName : '-'}</td>
+            <td>{expense.expensesCategory.expensesCatName    }</td>
+            <td>{expense.product.productName }</td>
             <td>{expense.price}</td>
             <td>{expense.description}</td>
             <td>{new Date(expense.date).toLocaleDateString()}</td>
