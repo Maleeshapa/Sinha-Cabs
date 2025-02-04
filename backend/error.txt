@@ -1,0 +1,8 @@
+[2025-02-04T09:36:51.279Z] - Error: Access denied for user ''@'localhost' (using password: NO)
+Stack Trace:
+SequelizeAccessDeniedError: Access denied for user ''@'localhost' (using password: NO)
+    at ConnectionManager.connect (F:\Stud\MKB\Project 2 (2025-02-04)\Sinha-Cabs\backend\node_modules\sequelize\lib\dialects\mysql\connection-manager.js:94:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async ConnectionManager._connect (F:\Stud\MKB\Project 2 (2025-02-04)\Sinha-Cabs\backend\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:222:24)
+    at async F:\Stud\MKB\Project 2 (2025-02-04)\Sinha-Cabs\backend\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:174:32
+
