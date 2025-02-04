@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2025 at 10:16 AM
+-- Generation Time: Feb 04, 2025 at 06:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -148,6 +148,7 @@ CREATE TABLE `customer` (
   `nic` varchar(255) DEFAULT NULL,
   `license` varchar(255) DEFAULT NULL,
   `customerReview` varchar(255) DEFAULT NULL,
+  `customerDescription` varchar(255) DEFAULT NULL,
   `guarantorId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
@@ -155,10 +156,11 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cusId`, `cusName`, `cusCode`, `cusAddress`, `cusPhone`, `cusJob`, `cusOffice`, `cusStore`, `cusEmail`, `nic`, `license`, `customerReview`, `guarantorId`) VALUES
-(6, 'kavindu  Z', 'cus002', 'Hunnasgiriya Z', '1234567895 Z', 'kada Z', 'kavindu stores', 'terra', 'kavindu@gmail.com', 'nicZ', 'liceneZ', 'goodd', NULL),
-(14, 'test', 'CUS003', 'kandy', '1', 'SE', '', '', NULL, '123456789v', '987654321', 'Good', NULL),
-(17, 'test', 'CUS004', 'test', 'test', 'test', '', '', NULL, 'test', 'test', 'Good', NULL);
+INSERT INTO `customer` (`cusId`, `cusName`, `cusCode`, `cusAddress`, `cusPhone`, `cusJob`, `cusOffice`, `cusStore`, `cusEmail`, `nic`, `license`, `customerReview`, `customerDescription`, `guarantorId`) VALUES
+(6, 'kavindu  Z', 'cus002', 'Hunnasgiriya Z', '1234567895 Z', 'kada Z', 'kavindu stores', 'terra', 'kavindu@gmail.com', 'nicZ', 'liceneZ', 'goodd', NULL, NULL),
+(14, 'test', 'CUS003', 'kandy', '1', 'SE', '', '', NULL, '123456789v', '987654321', 'Good', NULL, NULL),
+(17, 'test', 'CUS004', 'test', 'test', 'test', '', '', NULL, 'test', 'test', 'Good', NULL, NULL),
+(18, 'test', 'CUS005', 'test', 'test', 'test', '', '', NULL, 'test', 'test', 'Good', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -207,14 +209,12 @@ CREATE TABLE `duecustomer` (
 
 CREATE TABLE `expenses` (
   `expensesId` int(11) NOT NULL,
-  `expensesRef` varchar(45) NOT NULL,
-  `expensesNote` varchar(255) NOT NULL,
-  `expensesAmount` varchar(45) NOT NULL,
-  `expensesDate` varchar(45) NOT NULL,
-  `expensesImage` varchar(255) NOT NULL,
-  `expensesCat_expensesCatId` int(11) NOT NULL,
-  `user_userId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  `expensesCatId` int(11) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `price` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -224,9 +224,9 @@ CREATE TABLE `expenses` (
 
 CREATE TABLE `expensescat` (
   `expensesCatId` int(11) NOT NULL,
-  `expensesCatName` varchar(45) NOT NULL,
-  `expensesCatType` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+  `expensesCatName` varchar(255) DEFAULT NULL,
+  `expensesCatType` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -319,6 +319,7 @@ CREATE TABLE `products` (
   `productId` int(11) NOT NULL,
   `productName` varchar(255) NOT NULL,
   `productCode` varchar(45) NOT NULL,
+  `productChassi` varchar(255) DEFAULT NULL,
   `productUnit` varchar(255) NOT NULL,
   `productDiscount` float DEFAULT NULL,
   `productBuyingPrice` int(11) NOT NULL,
@@ -331,6 +332,15 @@ CREATE TABLE `products` (
   `productStatus` varchar(45) NOT NULL,
   `category_categoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`productId`, `productName`, `productCode`, `productChassi`, `productUnit`, `productDiscount`, `productBuyingPrice`, `productSellingPrice`, `productWarranty`, `productProfit`, `productEmi`, `productDescription`, `productImage`, `productStatus`, `category_categoryId`) VALUES
+(13, 'car', 'CP-100200', NULL, '', NULL, 0, 6000, '', 0, NULL, 'car', 'http://localhost:5000/uploads/products/car_1738664541542.jpg', 'In stock', 1),
+(14, 'Car  2', 'cn-1000', 'CN-5000', '', NULL, 0, 500, '', 0, NULL, 'hi', NULL, 'In stock', 1),
+(15, 'van 1', 'p1', '', '', NULL, 0, 8000, '', 0, NULL, '', NULL, 'In stock', 1);
 
 -- --------------------------------------------------------
 
@@ -614,15 +624,15 @@ ALTER TABLE `duecustomer`
 -- Indexes for table `expenses`
 --
 ALTER TABLE `expenses`
-  ADD PRIMARY KEY (`expensesId`) USING BTREE,
-  ADD KEY `fk_Expenses_expensesCat1_idx` (`expensesCat_expensesCatId`) USING BTREE,
-  ADD KEY `fk_Expenses_user1_idx` (`user_userId`) USING BTREE;
+  ADD PRIMARY KEY (`expensesId`),
+  ADD KEY `expensesCatId` (`expensesCatId`),
+  ADD KEY `productId` (`productId`);
 
 --
 -- Indexes for table `expensescat`
 --
 ALTER TABLE `expensescat`
-  ADD PRIMARY KEY (`expensesCatId`) USING BTREE;
+  ADD PRIMARY KEY (`expensesCatId`);
 
 --
 -- Indexes for table `guarantor`
@@ -772,7 +782,7 @@ ALTER TABLE `costing_headers`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cusId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `cusId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `deliverynote`
@@ -820,7 +830,7 @@ ALTER TABLE `invoiceproduct`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `returnitems`
@@ -932,6 +942,13 @@ ALTER TABLE `duecustomer`
   ADD CONSTRAINT `duecustomer_ibfk_1` FOREIGN KEY (`cusId`) REFERENCES `customer` (`cusId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `duecustomer_ibfk_2` FOREIGN KEY (`invoiceId`) REFERENCES `invoice` (`invoiceId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `duecustomer_ibfk_3` FOREIGN KEY (`transactionId`) REFERENCES `transaction` (`transactionId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD CONSTRAINT `expenses_ibfk_1` FOREIGN KEY (`expensesCatId`) REFERENCES `expensescat` (`expensesCatId`),
+  ADD CONSTRAINT `expenses_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`productId`);
 
 --
 -- Constraints for table `invoice`
