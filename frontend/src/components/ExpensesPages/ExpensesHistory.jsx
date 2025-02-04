@@ -2,7 +2,7 @@ import React from 'react'
 
 const ExpensesHistory = () => {
     return (
-        <div>
+        <div className="scrolling-container">
             <h4>Expenses History</h4>
         </div>
     )
