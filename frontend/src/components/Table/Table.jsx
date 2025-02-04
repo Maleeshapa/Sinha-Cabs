@@ -194,31 +194,20 @@ const Table = ({
 
                 <div className="mt-2">
                     <div className="table-table" style={{ borderRadius: "5px"}}>
-                        <table className="table table-hover table-bordered table-responsive table-striped">
-                            <thead className="table-primary">
+                        <table className="table table-primary table-hover table-bordered table-responsive table-striped">
+                            <thead >
                                 <tr >
                                     {tableColumns.map((item, index) => (
                                         <th
                                             key={index}
-                                            style={{
-                                                backgroundColor: "#555",
-                                                color: "white",
-                                                textAlign: "center",
-                                                fontSize: "13px",
-
-                                            }}
+                                           
                                         >
                                             {item}
                                         </th>
                                     ))}
                                     {showActions && (
                                         <th
-                                            style={{
-                                                backgroundColor: "#555",
-                                                color: "white",
-                                                fontSize: "13px",
-                                                textAlign: "center",
-                                            }}
+                                            
                                         >
                                             Actions
                                         </th>
