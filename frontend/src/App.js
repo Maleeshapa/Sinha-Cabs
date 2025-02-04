@@ -40,6 +40,7 @@ import DueInvoice from './components/Due/DueInvoice';
 import UnpaidInvoice from './components/Due/Unpaid';
 import SupplierVisePayments from './Models/SupplierForm/SupplierVisePayments';
 import Expenses from './Pages/Expenses/Expenses';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('token');
@@ -118,6 +119,7 @@ function Layout() {
             <Route path="/qutation" element={<ProtectedRoute><Qutation /></ProtectedRoute>} />
             <Route path="/qutation-invoice/:id" element={<ProtectedRoute><QuotationInvoice /></ProtectedRoute>} />
           </Routes>
+          <ScrollToTopButton />
         </div>
       </div>
     </div>
