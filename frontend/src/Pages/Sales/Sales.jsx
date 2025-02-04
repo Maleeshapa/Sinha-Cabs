@@ -16,7 +16,7 @@ const Sales = () => {
     <div>
       <div className='show-Header'><Header /></div>
       <Routes>
-        <Route path="new/:invoiceType" element={<NewSales />} />
+        <Route path="new" element={<NewSales />} />
         <Route path="history" element={<SalesHistory />} />
         <Route path="invoice" element={<Invoice />} />
         <Route path="delivery" element={<Delivery />} />

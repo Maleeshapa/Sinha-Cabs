@@ -68,29 +68,29 @@ const Sidebar = () => {
 
     const menuItems = [
 
+        // {
+        //     title: 'Draft',
+        //     icon: <SquarePen size={20} />,
+        //     path: '/sales',
+        //     submenus: [
+        //         { title: 'Draft', path: '/sales/draft' },
+        //         { title: 'Invoice', path: '/sales/draftInvoice' },
+        //         { title: 'Delivery', path: '/sales/draftDelivery' },
+        //         { title: 'Proforma', path: '/sales/draftPerforma' },
+        //     ]
+        // },
         {
-            title: 'Draft',
-            icon: <SquarePen size={20} />,
-            path: '/sales',
-            submenus: [
-                { title: 'Draft', path: '/sales/draft' },
-                { title: 'Invoice', path: '/sales/draftInvoice' },
-                { title: 'Delivery', path: '/sales/draftDelivery' },
-                { title: 'Proforma', path: '/sales/draftPerforma' },
-            ]
-        },
-        {
-            title: 'Sales',
+            title: 'Rental',
             icon: < CirclePlus  size={20} />,
             path: '/sales',
             submenus: [
-                // { title: 'Create Sale Invoice', path: '/sales/new' },
-                { title: 'History', path: '/sales/history' },
-                { title: 'Invoice', path: '/sales/invoice' },
-                { title: 'Proforma Invoice', path: '/sales/credit' },
-                { title: 'Delivery Note', path: '/sales/delivery' },
-                { title: 'Credit Note', path: '/return/list' },
-                { title: 'Quotation', path: '/qutation' },
+                { title: 'New Rental', path: '/sales/new' },
+                { title: 'Rental History', path: '/sales/history' },
+                // { title: 'Invoice', path: '/sales/invoice' },
+                // { title: 'Proforma Invoice', path: '/sales/credit' },
+                // { title: 'Delivery Note', path: '/sales/delivery' },
+                // { title: 'Credit Note', path: '/return/list' },
+                // { title: 'Quotation', path: '/qutation' },
                 //{ title: 'Draft', path: '/sales/draft' },
             ]
         },
