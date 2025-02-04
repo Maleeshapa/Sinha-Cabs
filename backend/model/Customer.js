@@ -50,9 +50,10 @@
 // module.exports = Customer;
 
 // Guarantor Model
+
+
 const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConfig");
-
 
 const Customer = sequelize.define(
     "Customer",
@@ -111,6 +112,10 @@ const Customer = sequelize.define(
             },
         },
         customerReview: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        customerDescription: {
             type: DataTypes.STRING,
             allowNull: true,
         },

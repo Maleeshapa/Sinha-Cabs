@@ -3,9 +3,8 @@ const { Op } = require('sequelize');
 
 async function createCustomer(req, res) {
     try {
-        const { cusName, cusAddress, cusPhone, cusJob, cusOffice, cusStore, cusEmail, nic, license, customerReview } = req.body;
+        const { cusName, cusAddress, cusPhone, cusJob, cusOffice, cusStore, cusEmail, nic, license, customerReview, customerDescription } = req.body;
 
-       
         // Generate cusCode
         const lastCustomer = await Customer.findOne({
             order: [["cusCode", "DESC"]],
@@ -29,6 +28,7 @@ async function createCustomer(req, res) {
             nic,
             license,
             customerReview,
+            customerDescription,
         });
 
         // Return success response
@@ -88,7 +88,8 @@ async function updateCustomer(req, res) {
             cusEmail,
             nic,
             license,
-            customerReview
+            customerReview,
+            customerDescription
         } = req.body;
 
         const customer = await Customer.findByPk(id);
@@ -106,7 +107,8 @@ async function updateCustomer(req, res) {
             cusEmail,
             nic,
             license,
-            customerReview
+            customerReview,
+            customerDescription
         });
 
         res.status(200).json(customer);
