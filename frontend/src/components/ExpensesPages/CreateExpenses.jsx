@@ -3,7 +3,7 @@ import React from 'react'
 const CreateExpenses = () => {
     return (
         <div className="scrolling-container">
-            <h4>Create Expenses</h4>
+            <h4>Create Category</h4>
         </div>
     )
 }

@@ -28,89 +28,40 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single('expensesImage');
 
 // Create Expense 
+
 const createExpense = async (req, res) => {
-    upload(req, res, async function (err) {
-        if (err instanceof multer.MulterError) {
-            return res.status(500).json({ error: 'Image upload failed' });
-        } else if (err) {
-            return res.status(500).json({ error: 'Unknown error: Image upload failed' });
+    try {
+        const { expensesCatId, productId, price, description, date } = req.body;
+
+        // Validate required fields
+        if (!expensesCatId || !productId || !price || !description || !date) {
+            return res.status(400).json({ error: "All fields are required." });
         }
 
-        try {
-            const {
-                expensesRef,
-                expensesNote,
-                expensesAmount,
-                expensesDate,
-                expensesCatId,
-                userId
-            } = req.body;
+        // Create new expense
+        const newExpense = await Expenses.create({
+            expensesCatId,
+            productId,
+            price,
+            description,
+            date
+        });
 
-            // Validate input fields
-            if (!expensesRef || !expensesNote || !expensesAmount || !expensesDate || !expensesCatId || !userId) {
-                return res.status(400).json({ error: "All fields are required." });
-            }
-
-            // Validate Expenses Category
-            const expensesCat = await ExpensesCat.findByPk(expensesCatId);
-            if (!expensesCat) {
-                return res.status(400).json({ message: 'Invalid Expenses Category ID' });
-            }
-
-            // Validate User
-            const user = await User.findByPk(userId);
-            if (!user) {
-                return res.status(400).json({ message: 'Invalid User ID' });
-            }
-
-            // Check for existing ExpensesRef
-            const existingExpenses = await Expenses.findOne({ where: { expensesRef } });
-            if (existingExpenses) {
-                return res.status(409).json({ error: "Expenses Ref Number already exists." });
-            }
-
-            // Handle image upload
-            let expensesImage = null;
-            if (req.file) {
-                expensesImage = `${req.protocol}://${req.get('host')}/uploads/expenses/${req.file.filename}`;
-            }
-
-            // Create new expense entry
-            const newExpenses = await Expenses.create({
-                expensesRef,
-                expensesNote,
-                expensesAmount,
-                expensesDate,
-                expensesImage,
-                expensesCat_expensesCatId: expensesCatId,
-                user_userId: userId,
-            });
-
-            // Fetch newly created expenses with Expenses Category and User
-            const expensesWithDetails = await Expenses.findByPk(newExpenses.expensesId, {
-                include: [
-                    {
-                        model: ExpensesCat,
-                        as: 'expensesCat'
-                    },
-                    {
-                        model: User,
-                        as: 'user'
-                    },
-                ]
-            });
-
-            res.status(201).json(expensesWithDetails);
-        } catch (error) {
-            if (error.name === "SequelizeValidationError") {
-                return res.status(400).json({ error: "Validation error: Please check the provided data." });
-            }
-            if (error.name === "SequelizeUniqueConstraintError") {
-                return res.status(409).json({ error: "Expense already exists." });
-            }
-            return res.status(500).json({ error: `An internal server error occurred: ${error.message}` });
+        // Return success response
+        return res.status(201).json({ message: "Expense created successfully.", newExpense });
+    } catch (error) {
+        // Handle Sequelize validation errors
+        if (error.name === "SequelizeValidationError") {
+            return res.status(400).json({ error: "Validation error: Please check the provided data." });
         }
-    });
+
+        // Catch all other errors
+        return res.status(500).json({ error: `An internal server error occurred: ${error.message}` });
+    }
+};
+
+module.exports = {
+    createExpense
 };
 
 // Get all expenses

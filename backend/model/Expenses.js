@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConfig");
 const ExpensesCat = require("./ExpensesCat");
-const User = require("./User");
+const Product = require("./Products"); // Assuming you have a Product model
 
 const Expenses = sequelize.define(
     "Expenses",
@@ -11,39 +11,33 @@ const Expenses = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        expensesRef: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        expensesNote: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        expensesAmount: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        expensesDate: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
-        expensesImage: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        expensesCat_expensesCatId: {
+        expensesCatId: {
             type: DataTypes.INTEGER,
+            allowNull: true,
             references: {
-                model: "expensesCat",
+                model: ExpensesCat,
                 key: "expensesCatId",
             },
         },
-        user_userId: {
+        productId: {
             type: DataTypes.INTEGER,
+            allowNull: true,
             references: {
-                model: "user",
-                key: "userId",
+                model: Product,
+                key: "productId",
             },
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        date: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
     },
     {
@@ -51,13 +45,9 @@ const Expenses = sequelize.define(
         timestamps: false,
     }
 );
-Expenses.belongsTo(ExpensesCat, {
-    foreignKey: 'expensesCat_expensesCatId',
-    as: 'expensesCat'
-});
-Expenses.belongsTo(User, {
-    foreignKey: 'user_userId',
-    as: 'user'
-});
+
+ 
+Expenses.belongsTo(ExpensesCat, { foreignKey: "expensesCatId" });
+Expenses.belongsTo(Product, { foreignKey: "productId" });
 
 module.exports = Expenses;

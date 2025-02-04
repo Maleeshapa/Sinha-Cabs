@@ -11,11 +11,11 @@ const ExpensesCat = sequelize.define(
         },
         expensesCatName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         expensesCatType: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
     },
     {
