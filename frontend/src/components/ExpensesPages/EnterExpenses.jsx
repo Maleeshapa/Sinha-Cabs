@@ -79,11 +79,11 @@ const EnterExpenses = () => {
                 </div>
                 <div className="form-group">
                     <label>Description</label>
-                    <input type="text" className="form-control" value={description} onChange={e => setDescription(e.target.value)} required />
+                    <input type="text" className="form-control" value={description} onChange={e => setDescription(e.target.value)}  />
                 </div>
                 <div className="form-group">
                     <label>Date</label>
-                    <DatePicker selected={date} onChange={date => setDate(date)} className="form-control" />
+                    <DatePicker selected={date} onChange={date => setDate(date)} className="form-control" required/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

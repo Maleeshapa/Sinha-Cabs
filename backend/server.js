@@ -215,6 +215,9 @@ sequelize
         console.error("Error synchronizing database:", err);
     });
 
+
+    
+
 app.get('/download/invoice/:filename', (req, res) => {
     const { filename } = req.params;
     const filePath = path.join(__dirname, 'uploads', 'invoice', filename);

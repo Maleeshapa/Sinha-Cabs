@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConfig");
 const ExpensesCat = require("./ExpensesCat");
-const Product = require("./Products"); // Assuming you have a Product model
+const Product = require("./Products");  
 
 const Expenses = sequelize.define(
     "Expenses",
@@ -47,7 +47,7 @@ const Expenses = sequelize.define(
 );
 
  
-Expenses.belongsTo(ExpensesCat, { foreignKey: "expensesCatId" });
-Expenses.belongsTo(Product, { foreignKey: "productId" });
+Expenses.belongsTo(ExpensesCat, { foreignKey: "expensesCatId", as: "expensesCategory" });
+Expenses.belongsTo(Product, { foreignKey: "productId", as: "product" });
 
 module.exports = Expenses;

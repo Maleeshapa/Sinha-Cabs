@@ -4,6 +4,7 @@ const User = require("../model/User");
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const Product = require("../model/Products");
 
 // Image upload setup for expenses
 const storage = multer.diskStorage({
@@ -71,19 +72,24 @@ const getAllExpenses = async (req, res) => {
             include: [
                 {
                     model: ExpensesCat,
-                    as: 'expensesCat'
+                    as: "expensesCategory", // Alias must match model association
                 },
                 {
-                    model: User,
-                    as: 'user'
+                    model: Product,
+                    as: "product", // Alias must match model association
                 },
-            ]
+            ],
         });
+
         res.status(200).json(expenses);
     } catch (error) {
+        console.error("Error fetching expenses:", error);
         res.status(500).json({ error: `An error occurred: ${error.message}` });
     }
 };
+
+module.exports = { getAllExpenses };
+
 
 // Get expenses by ID
 const getExpenseById = async (req, res) => {
