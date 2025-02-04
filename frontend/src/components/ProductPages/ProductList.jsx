@@ -12,7 +12,7 @@ const ProductList = () => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(null);
 
   const columns = ['id', 'Product', 'Product Code', 'Weight(g/Kg)', 'Buying Price', 'Selling Price', 'Warranty (months)', 'Profit', 'Description',"CategoryId", 'Category', 'Status'];
-  const btnName = ['Create Product +'];
+  const btnName = ['Create Vechicle +'];
 
   useEffect(() => {
     fetchProductList();
@@ -131,8 +131,8 @@ const ProductList = () => {
     navigate('/product/create');
   };
 
-  const title = 'Product List';
-  const invoice = 'product_list.pdf';
+  const title = 'Vechicles List';
+  const invoice = 'Vechicles.pdf';
 
   return (
     <div>

@@ -10,7 +10,7 @@ const ProductCategory = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const columns = ["ID", "Category" ];
+  const columns = ["#", "Category" ];
   const btnName = "Add Category";
 
   useEffect(() => {

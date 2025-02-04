@@ -80,7 +80,7 @@ const CategoryForm = ({ closeModal, showModal, selectedCategory, onSave }) => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="categoryType">Category Type</label>
                         <input
                             type="text"
@@ -90,7 +90,7 @@ const CategoryForm = ({ closeModal, showModal, selectedCategory, onSave }) => {
                             value={formData.categoryType}
                             onChange={handleChange}
                         />
-                    </div>
+                    </div> */}
                     <div className="form-actions">
                         <button type="button" className="btn btn-danger" onClick={closeModal}>Close</button>
                         <button type="submit" className="btn btn-primary">{selectedCategory ? 'Update' : 'Save Changes'}</button>

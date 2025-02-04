@@ -32,6 +32,8 @@ const Transaction = require("./model/Transaction");
 const DueCustomerController = require("./controller/DueCustomerController");
 const SupplierPaymentController = require("./controller/SupplierPaymentController");
 
+const SwitchController = require('./controller/SwitchController');
+
 const DueCustomer = require("./model/DueCustomer");
 const DueController = require("./controller/DueController");
 
@@ -41,12 +43,15 @@ const DueController = require("./controller/DueController");
 const app = express();
 const PORT = process.env.PORT;
 
+
+
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads', 'purchase-orders')));
 
-
+app.use(express.static(path.join(__dirname, 'build')));
 //user routes
 app.post("/user", UserController.createUser);
 app.get("/users", UserController.getAllUsers);
@@ -240,6 +245,10 @@ app.put("/costings/:id", CostingController.updateAllCosting);
 // app.put('/deliveryNotesStatus/:id', DeliveryNoteController.updateStatus);
 // app.put('/deliveryNotesQty/:id', DeliveryNoteController.updateDeliverytQty);
 
+// status endpoint
+app.get('/api/switch', SwitchController.getStatus);
+app.post('/api/switch', SwitchController.updateStatus);
+
 sequelize
     .sync()
     .then(() => {
@@ -263,6 +272,12 @@ app.get('/download/invoice/:filename', (req, res) => {
         res.status(404).json({ error: "File not found" });
     }
 });
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+  
 
 // Start the server
 app.listen(PORT, () => {

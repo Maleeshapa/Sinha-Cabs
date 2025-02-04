@@ -15,7 +15,7 @@ const Category = sequelize.define(
         },
         categoryType: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         categoryStatus: {
             type: DataTypes.STRING,

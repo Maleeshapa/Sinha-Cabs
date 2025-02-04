@@ -79,7 +79,7 @@ const CreateProduct = () => {
     e.preventDefault();
 
     if (formData.productCategory === 'select') {
-      setError('Please select a valid product category.');
+      setError('Please select a valid Vechicle category.');
       return;
     }
 
@@ -162,7 +162,7 @@ const CreateProduct = () => {
   return (
     <div>
       <div className="scrolling-container">
-        <h4>{selectedProd ? 'Edit Product' : 'Add Product'}</h4>
+        <h4>{selectedProd ? 'Edit Vechicle' : 'Add Vechicle'}</h4>
         {error && (
           <div className="alert alert-danger" role="alert">
             {error}
@@ -178,9 +178,9 @@ const CreateProduct = () => {
           <form action="" className='col-md-8 product-form' onSubmit={handleSubmit}>
             <div className="row">
               <div className="product-details col-md-4 mb-2">
-                <label htmlFor="" className='mb-1'>Product category</label>
+                <label htmlFor="" className='mb-1'>Vechicle category</label>
                 <select name="productCategory" id="" onChange={handleChange} className="form-control" value={formData.productCategory}>
-                  <option value="select">Select Product Category</option>
+                  <option value="select">Select Vechicle Category</option>
                   {categories.map((category) => (
                     <option key={category.categoryId} value={category.categoryId}>
                       {category.categoryName}
@@ -190,7 +190,7 @@ const CreateProduct = () => {
               </div>
 
               <div className="product-details col-md-4 mb-2">
-                <label htmlFor="" className='mb-1'>Product Image</label>
+                <label htmlFor="" className='mb-1'>Vechicle Image</label>
                 <input type="file" name='image' id='' accept="image/*" onChange={handleImageChange} className='form-control' />
                 {preview && (
                   <div style={{ margin: '10px auto' }}>
@@ -202,12 +202,12 @@ const CreateProduct = () => {
 
             <div className="row">
               <div className="product-details col-md-4 mb-2">
-                <label htmlFor="" className='mb-1'>Product Name</label>
+                <label htmlFor="" className='mb-1'>Vechicle Name</label>
                 <input onChange={handleChange} type="text" name='productName' id='' value={formData.productName} className='form-control' />
               </div>
 
               <div className="product-details col-md-4 mb-2">
-                <label htmlFor="" className='mb-1'>Product Code</label>
+                <label htmlFor="" className='mb-1'>Vechicle Code</label>
                 <input onChange={handleChange} type="text" name='productCode' id='' value={formData.productCode} className='form-control' />
               </div>
             </div>
@@ -296,12 +296,12 @@ const CreateProduct = () => {
             </div>
             <div className="sales-add btn d-grid d-md-flex me-md-2 justify-content-end px-5">
               <button type='reset' className="btn btn-danger mb-2 text-bold" onReset={handleReset} style={{fontSize: "13px"}}>Clear</button>
-              <button className="btn btn-primary btn-md mb-2" style={{fontSize: "13px"}}>{selectedProd ? 'Update Product' : 'Create Product'}</button>
+              <button className="btn btn-primary btn-md mb-2" style={{fontSize: "13px"}}>{selectedProd ? 'Update Vechicle' : 'Create Vechicle'}</button>
             </div>
           </form>
 
           <div className="showProduct col-md-4">
-            <h4>Products With Category</h4>
+            <h4>Vechicle With Category</h4>
             {products.length > 0 ? (
               products.map(product => (<div className="mb-1">
                 <div key={product.productId} className="showProduct-group">
@@ -311,7 +311,7 @@ const CreateProduct = () => {
               </div>
               ))
             ) : (
-              <p>No products available</p>
+              <p>No Vechicles available</p>
             )}
           </div>
         </div>

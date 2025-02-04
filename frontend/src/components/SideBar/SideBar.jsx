@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart,  Users,  FileText, Menu,  User,  SquarePen, CircleDollarSign, HandCoins, Car } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart,  Users,  FileText, Menu,  User,  SquarePen, CircleDollarSign, HandCoins, Car, CirclePlus } from 'lucide-react';
 import './SideBar.css';
 
 const Sidebar = () => {
@@ -81,7 +81,7 @@ const Sidebar = () => {
         },
         {
             title: 'Sales',
-            icon: <ShoppingCart size={20} />,
+            icon: < CirclePlus  size={20} />,
             path: '/sales',
             submenus: [
                 // { title: 'Create Sale Invoice', path: '/sales/new' },
