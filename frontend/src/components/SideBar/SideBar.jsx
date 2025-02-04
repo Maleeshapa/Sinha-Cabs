@@ -128,9 +128,9 @@ const Sidebar = () => {
                 // { title: 'Due Customers', path: '/due-customer/due-customer-list' },
                 // { title: 'Due Customers', path: '/customer/dueCustomer' },
                 // { title: 'Sale Due Payment', path: '/customer/sale-due-payment' },
-                { title: 'Customers Due', path: '/due-customer/view-cus-due-history' },
+                // { title: 'Customers Due', path: '/due-customer/view-cus-due-history' },
                 { title: 'Current Due List', path: '/due-customer/all-due-customer-list' },
-                { title: 'All Due History', path: '/due-customer/all-due-history' },
+                // { title: 'All Due History', path: '/due-customer/all-due-history' },
             ]
         },
 
