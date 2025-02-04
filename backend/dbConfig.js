@@ -13,12 +13,10 @@ const sequelize = new Sequelize(
   }
 );
 
-// Function to create or append the error to a .txt file
 const writeErrorToFile = (error) => {
   const timestamp = new Date().toISOString();
   const logMessage = `[${timestamp}] - Error: ${error.message}\nStack Trace:\n${error.stack}\n\n`;
 
-  // Write the error details to a file
   fs.writeFile("error.txt", logMessage, { flag: "a" }, (err) => {
     if (err) {
       console.error("Failed to write to the text file:", err.message);
@@ -28,7 +26,6 @@ const writeErrorToFile = (error) => {
   });
 };
 
-// Test the database connection
 sequelize
   .authenticate()
   .then(() => {

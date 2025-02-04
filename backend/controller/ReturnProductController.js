@@ -1,6 +1,5 @@
 const ReturnProduct = require('../model/ReturnProduct');
 const InvoiceProduct = require('../model/InvoiceProduct');
-const Stock = require('../model/Stock');
 const Return = require('../model/Return');
 const Product = require('../model/Products');
 
@@ -16,10 +15,10 @@ async function createReturnProduct(req, res) {
         const createdReturns = [];
 
         for (const returnItem of returns) {
-            const { returnQty, returnAmount, returnItemType, returnNote, returnDate, invoiceProductId, stockId, returnItemId,productId } = returnItem;
+            const { returnQty, returnAmount, returnItemType, returnNote, returnDate, invoiceProductId, returnItemId, productId } = returnItem;
 
             // Validate required fields
-            if (!returnQty || !returnItemType || !invoiceProductId || !stockId || !returnItemId || !productId) {
+            if (!returnQty || !returnItemType || !invoiceProductId || !returnItemId || !productId) {
                 return res.status(400).json({
                     message: "Missing required fields in return item",
                     returnItem,
@@ -33,17 +32,10 @@ async function createReturnProduct(req, res) {
                     message: `Invalid invoice product ID: ${invoiceProductId}`,
                 });
             }
-            
-            const product=await Product.findByPk(productId);
-            if(!product){
-                return res.status(400).json({message:`invalid Product Id:${productId}`});
-            }
 
-            const stock = await Stock.findByPk(stockId);
-            if (!stock) {
-                return res.status(400).json({
-                    message: `Invalid stock ID: ${stockId}`,
-                });
+            const product = await Product.findByPk(productId);
+            if (!product) {
+                return res.status(400).json({ message: `Invalid Product ID: ${productId}` });
             }
 
             // Create return product
@@ -54,23 +46,11 @@ async function createReturnProduct(req, res) {
                 returnNote,
                 returnDate,
                 invoiceProductId,
-                stockId,
                 returnItemId,
                 productId
             });
 
             createdReturns.push(newReturnProduct);
-
-            if (returnItemType === "Refund") {
-                const updatedStockQty = parseFloat(stock.stockQty) + parseFloat(returnQty);
-                console.log("Current stockQty:", stock.stockQty);
-                console.log("Return Qty:", returnQty);
-                console.log("Updated stockQty:", updatedStockQty);
-
-                if (isNaN(updatedStockQty)) {
-                    throw new Error("Calculated stockQty is not a number");
-                }
-            }
         }
 
         res.status(201).json({
@@ -92,10 +72,6 @@ async function getAllReturnProducts(req, res) {
                 {
                     model: InvoiceProduct,
                     as: 'invoiceProduct'
-                },
-                {
-                    model: Stock,
-                    as: 'stock'
                 },
                 {
                     model: Return,
@@ -120,10 +96,6 @@ async function getAllReturnProductsById(req, res) {
                 {
                     model: InvoiceProduct,
                     as: 'invoiceProduct',
-                },
-                {
-                    model: Stock,
-                    as: 'stock',
                 },
                 {
                     model: Return,
@@ -156,10 +128,6 @@ async function getReturnProductsByInvoiceProductId(req, res) {
                 {
                     model: InvoiceProduct,
                     as: 'invoiceProduct',
-                },
-                {
-                    model: Stock,
-                    as: 'stock',
                 },
                 {
                     model: Return,
