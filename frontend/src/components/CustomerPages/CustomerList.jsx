@@ -37,7 +37,13 @@ const CustomerList = () => {
             cus.license,
             cus.cusJob,
             cus.cusAddress,
-            cus.customerReview,
+            <span className={
+        cus.customerReview === 'Good' ? 'text-success' :
+        cus.customerReview === 'Normal' ? 'text-warning' :
+        cus.customerReview === 'Bad' ? 'text-danger' : ''
+      }>
+      {cus.customerReview}
+    </span>,
             cus.customerDescription,
         ]);
         setData(formattedData);

@@ -11,7 +11,7 @@ const ProductList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductIndex, setSelectedProductIndex] = useState(null);
 
-  const columns = ['id', 'Product', 'Product Code', 'Weight(g/Kg)', 'Buying Price', 'Selling Price', 'Warranty (months)', 'Profit', 'Description',"CategoryId", 'Category', 'Status'];
+  const columns = ['#', 'Vechicle', 'Vechicle Number Plate', 'Chassi Number' ,'Rent Price',  'Description',"CategoryId", 'Category', 'Status'];
   const btnName = ['Create Vechicle +'];
 
   useEffect(() => {
@@ -29,11 +29,14 @@ const ProductList = () => {
         prod.productId,
         prod.productName,
         prod.productCode,
-        prod.productUnit,
-        prod.productBuyingPrice,
+        prod.productChassi,
+
+        
+
         prod.productSellingPrice,
-        prod.productWarranty,
-        prod.productProfit,
+
+        
+
         prod.productDescription,
         prod.category?.categoryId,
         prod.category?.categoryName,

@@ -113,7 +113,7 @@ const Sidebar = () => {
             submenus: [
 
                 { title: 'Vechicles Category', path: '/product/category' },
-                { title: 'Vechicles', path: '/product/create' },
+                { title: 'Add New Vechicle', path: '/product/create' },
                 { title: 'Vechicles List', path: '/product/product-list' }
             ]
         },
@@ -209,7 +209,7 @@ const Sidebar = () => {
                     }}
                 >
                     <div className="text-center mt-2 p-2">
-                        {/* <h1>LOGO</h1> */}
+                        <h1>සිංහ</h1>
                     </div>
                     <div className="position-sticky pt-3">
                         <ul className="nav flex-column">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CirclePlus, Plus, PlusCircle, ShoppingCart, User } from 'lucide-react';
+import { CarFront, CirclePlus, Plus, PlusCircle, ShoppingCart, User } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './NewSales.css';
 import Table from '../Table/Table'
@@ -43,7 +43,7 @@ const NewSales = ({ invoice }) => {
     const [date, time] = NewTime.split(', ');
     return { date: date.split('/').reverse().join('-'), time };
   };
-  const Columns = ['Product Code', 'Product Name', 'Product Price', 'Quantity', 'Discount', 'Total Price', 'Warranty', 'Product ID', 'Stock ID', 'Actions'];
+  const Columns = ['Number Plate', 'Vechicle', 'Price', 'Quantity', 'Discount', 'Total Price', 'Warranty', 'Product ID', 'Stock ID', 'Actions'];
   const [formData, setFormData] = useState({
     cusName: '',
     cusNic: '',
@@ -793,16 +793,14 @@ const NewSales = ({ invoice }) => {
               <div className="product">
                 <div className="subCaption d-flex justify-content-between  mb-3">
                   <p className="mb-0 d-flex align-items-center">
-                    <ShoppingCart className="me-2" /> Product Details
+                    <CarFront className="me-2" /> Vechicle Details
                   </p>
                   <button className="btn btn-success btn-sm me-2" style={{ fontSize: "12px" }} type="button" onClick={() => navigate('/product/product-list')}> Create Product </button>
                 </div>
 
                 <div className="row">
-                  <div className="product-details col-md-4 mb-2">
-                    <input onChange={handleChange} value={formData.productNo} type="text" name="productNo" className="form-control" id="productNo" placeholder="Product Code" />
-                  </div>
-                  <div className="product-details col-md-8 mb-2">
+
+                <div className="product-details col-md-8 mb-2">
                     {/* <input onChange={handleChange} value={formData.productName} type="text" name="productName" className="form-control" id="productName" placeholder="Product Name" /> */}
                     <ProductSearch
                       value={formData.productName}
@@ -810,8 +808,13 @@ const NewSales = ({ invoice }) => {
                       onProductSelect={handleProductSelect}
                     />
                   </div>
+                  
+                  <div className="product-details col-md-4 mb-2">
+                    <input onChange={handleChange} value={formData.productNo} type="text" name="productNo" className="form-control" id="productNo" placeholder="Number Plate" />
+                  </div>
+                 
                   <div className="product-details col-md-3 mb-2">
-                    <input onChange={handleChange} value={formData.productPrice} type="number" name="productPrice" className="form-control" id="price" placeholder="Product Price" onWheel={(e) => e.target.blur()} />
+                    <input onChange={handleChange} value={formData.productPrice} type="number" name="productPrice" className="form-control" id="price" placeholder="Rent Price" onWheel={(e) => e.target.blur()} />
                   </div>
                   <div className="product-details col-md-3 mb-2">
                     <input onChange={handleChange} value={formData.qty} type="number" name="qty" className="form-control" id="qty" placeholder="Enter Quantity" />
@@ -880,11 +883,11 @@ const NewSales = ({ invoice }) => {
               </div>
             </div>
             <div className="sales-addbtn d-grid d-md-flex me-md-2 justify-content-end px-5">
-              <button className="btn btn-primary btn-md" onClick={handleAddProduct} style={{ fontSize: "12px" }}>Add Product</button>
+              <button className="btn btn-primary btn-md" onClick={handleAddProduct} style={{ fontSize: "12px" }}>Add Vechicle</button>
             </div>
           </div>
 
-          <div className="product-table">
+          <div className="product-table mt-4">
             <table className="table table-dark table-striped table-responsive">
               <thead className=''>
                 <tr>
@@ -970,7 +973,7 @@ const NewSales = ({ invoice }) => {
                   )}
                 </div>
 
-                <div className="payment-details">
+                {/* <div className="payment-details">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="card" id="card" onChange={handleCard} className='payment-method' />
                     <label htmlFor="card" id='label' className='payment-card'>Card Payment</label>
@@ -978,18 +981,19 @@ const NewSales = ({ invoice }) => {
                   {showCard && (
                     <input type="number" className="form-control" id='' name='card' onChange={handlePaymentChange} value={formData.card} placeholder='Card Payment' onWheel={(e) => e.target.blur()} />
                   )}
-                </div>
+                </div> */}
 
-                {/* <div className="payment-details displayNone">
+                <div className="payment-details displayNone">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="credit" id="credit" onChange={handleCredit} className='payment-method' />
-                    <label htmlFor="credit" id='label' className='payment-card'>Credit Payment</label>
+                    <label htmlFor="credit" id='label' className='payment-card'>Pay Later</label>
                   </div>
                   {showCredit && (
                       <input type="number" className="form-control" id='payment' name='credit' value={formData.credit} onChange={handlePaymentChange} placeholder='credit Amount' onWheel={(e) => e.target.blur()} />
                     )} 
-                </div> */}
-                <div className="payment-details">
+                </div>
+
+                {/* <div className="payment-details">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="cheque" id="cheque" onChange={handleCheque} className='payment-method' />
                     <label htmlFor="cheque" id='label' className='payment-card'>Cheque Payment</label>
@@ -1001,6 +1005,7 @@ const NewSales = ({ invoice }) => {
                     </div>
                   )}
                 </div>
+                 */}
                 <div className="payment-details">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="online" id="online" onChange={handleOnlinePay} className='payment-method' />
