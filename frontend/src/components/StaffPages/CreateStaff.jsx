@@ -18,7 +18,7 @@ const CreateStaff = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
-  const columns = ["Title", "Full Name", "Department / Job Position", "User Type", "User Name", "Email", "Contact 1", "Contact 2", "Address", "Nic", 'Image', "Status"];
+  const columns = ["Title", "Full Name", "Branch", "User Type", "User Name", "Email", "Contact 1", "Contact 2", "Address", "Nic", 'Image', "Status"];
   const btnName = 'Add New Staff Member';
 
   useEffect(() => {
