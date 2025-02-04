@@ -14,7 +14,7 @@ const CustomerList = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [deleteRowIndex, setDeleteRowIndex] = useState(null);
 
-  const columns = ['#', 'Name', 'Phone Number', 'Nic', 'License', 'Job', 'Address', 'Guarantor Name', 'Guarantor Nic', 'Guarantor Phone', 'Guarantor Address', 'Customer Review'];
+  const columns = ['#', 'Name', 'Phone Number', 'Nic', 'License', 'Job', 'Address', 'Customer Review'];
 
   useEffect(() => {
     fetchCustomer();
@@ -37,10 +37,6 @@ const CustomerList = () => {
             cus.license,
             cus.cusJob,
             cus.cusAddress,
-            cus.guarantorName,
-            cus.guarantorNic,
-            cus.guarantorPhone,
-            cus.guarantorAddress,
             cus.customerReview,
         ]);
         setData(formattedData);
@@ -77,24 +73,20 @@ const CustomerList = () => {
   };
 
   const handleEdit = (rowIndex) => {
-    const selectedCusData = data[rowIndex];
-    setSelectedCus({
-      cusId: selectedCusData[0],
-      cusName: selectedCusData[1],
-      cusPhone: selectedCusData[2],
-      nic: selectedCusData[3],
-      license: selectedCusData[4],
-      cusJob: selectedCusData[5],
-      cusAddress: selectedCusData[6],
-      guarantorName: selectedCusData[7],
-      guarantorNic: selectedCusData[8],
-      guarantorPhone: selectedCusData[9],
-      guarantorAddress: selectedCusData[10],
-      customerReview: selectedCusData[11],
-    });
-    setModalIsOpen(true);
-  };
-  
+  const selectedCusData = data[rowIndex];
+  setSelectedCus({
+    cusId: selectedCusData[0],
+    cusName: selectedCusData[1],
+    cusPhone: selectedCusData[2],
+    nic: selectedCusData[3],
+    license: selectedCusData[4],
+    cusJob: selectedCusData[5],
+    cusAddress: selectedCusData[6],
+    customerReview: selectedCusData[7],
+  });
+  setModalIsOpen(true);
+};
+
 
   const openModal = () => {
     setSelectedCus(null);

@@ -49,8 +49,10 @@
 // );
 // module.exports = Customer;
 
+// Guarantor Model
 const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConfig");
+
 
 const Customer = sequelize.define(
     "Customer",
@@ -100,21 +102,13 @@ const Customer = sequelize.define(
             type: DataTypes.STRING,
             allowNull: true,
         },
-        guarantorName: {
-            type: DataTypes.STRING,
+        guarantorId: {
+            type: DataTypes.INTEGER,
             allowNull: true,
-        },
-        guarantorNic: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        guarantorPhone: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        guarantorAddress: {
-            type: DataTypes.STRING,
-            allowNull: true,
+            references: {
+                model: 'Guarantor',
+                key: 'guarantorId',
+            },
         },
         customerReview: {
             type: DataTypes.STRING,
@@ -126,4 +120,5 @@ const Customer = sequelize.define(
         timestamps: false,
     }
 );
+
 module.exports = Customer;

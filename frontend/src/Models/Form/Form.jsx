@@ -231,10 +231,6 @@ const Form = ({ closeModal, onSave, cus }) => {
       license: '',
       jobPosition: '',
       address: '',
-      guarantorName: '',
-      guarantorNic: '',
-      guarantorPhone: '',
-      guarantorAddress: '',
       customerReview: '',
   });
 
@@ -247,10 +243,6 @@ const Form = ({ closeModal, onSave, cus }) => {
               license: cus.license || '',
               jobPosition: cus.cusJob || '',
               address: cus.cusAddress || '',
-              guarantorName: cus.guarantorName || '',
-              guarantorNic: cus.guarantorNic || '',
-              guarantorPhone: cus.guarantorPhone || '',
-              guarantorAddress: cus.guarantorAddress || '',
               customerReview: cus.customerReview || '',
           });
       }
@@ -298,10 +290,6 @@ const Form = ({ closeModal, onSave, cus }) => {
           license: formData.license,
           cusJob: formData.jobPosition,
           cusAddress: formData.address,
-          guarantorName: formData.guarantorName,
-          guarantorNic: formData.guarantorNic,
-          guarantorPhone: formData.guarantorPhone,
-          guarantorAddress: formData.guarantorAddress,
           customerReview: formData.customerReview,
       };
 
@@ -420,53 +408,7 @@ const Form = ({ closeModal, onSave, cus }) => {
                       {formErrors.address && <span id="address-error" className="error-text">{formErrors.address}</span>}
                   </div>
 
-                  <div className="form-group">
-                      <label htmlFor="guarantorName">Guarantor Name</label>
-                      <input
-                          id="guarantorName"
-                          type="text"
-                          name="guarantorName"
-                          value={formData.guarantorName}
-                          onChange={handleChange}
-                          placeholder="Enter Guarantor Name"
-                      />
-                  </div>
-
-                  <div className="form-group">
-                      <label htmlFor="guarantorNic">Guarantor NIC</label>
-                      <input
-                          id="guarantorNic"
-                          type="text"
-                          name="guarantorNic"
-                          value={formData.guarantorNic}
-                          onChange={handleChange}
-                          placeholder="Enter Guarantor NIC"
-                      />
-                  </div>
-
-                  <div className="form-group">
-                      <label htmlFor="guarantorPhone">Guarantor Phone</label>
-                      <input
-                          id="guarantorPhone"
-                          type="text"
-                          name="guarantorPhone"
-                          value={formData.guarantorPhone}
-                          onChange={handleChange}
-                          placeholder="Enter Guarantor Phone"
-                      />
-                  </div>
-
-                  <div className="form-group">
-                      <label htmlFor="guarantorAddress">Guarantor Address</label>
-                      <input
-                          id="guarantorAddress"
-                          type="text"
-                          name="guarantorAddress"
-                          value={formData.guarantorAddress}
-                          onChange={handleChange}
-                          placeholder="Enter Guarantor Address"
-                      />
-                  </div>
+                  
 
                   <div className="form-group">
                       <label htmlFor="customerReview">Customer Review</label>

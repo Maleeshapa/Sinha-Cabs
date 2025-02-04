@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2025 at 09:16 AM
+-- Generation Time: Feb 04, 2025 at 10:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -147,20 +147,18 @@ CREATE TABLE `customer` (
   `cusEmail` varchar(255) DEFAULT NULL,
   `nic` varchar(255) DEFAULT NULL,
   `license` varchar(255) DEFAULT NULL,
-  `guarantorName` varchar(255) DEFAULT NULL,
-  `guarantorNic` varchar(255) DEFAULT NULL,
-  `guarantorPhone` varchar(255) DEFAULT NULL,
-  `guarantorAddress` varchar(255) DEFAULT NULL,
-  `customerReview` varchar(255) DEFAULT NULL
+  `customerReview` varchar(255) DEFAULT NULL,
+  `guarantorId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cusId`, `cusName`, `cusCode`, `cusAddress`, `cusPhone`, `cusJob`, `cusOffice`, `cusStore`, `cusEmail`, `nic`, `license`, `guarantorName`, `guarantorNic`, `guarantorPhone`, `guarantorAddress`, `customerReview`) VALUES
-(6, 'kavindu  Z', 'cus002', 'Hunnasgiriya Z', '1234567895 Z', 'kada Z', 'kavindu stores', 'terra', 'kavindu@gmail.com', 'nicZ', 'liceneZ', 'gZ', 'gnicZ', 'g118', 'gadd', 'goodd'),
-(14, 'test', 'CUS003', 'kandy', '1', 'SE', '', '', NULL, '123456789v', '987654321', 'abc', '2222222222v', '118', 'katu', 'Good');
+INSERT INTO `customer` (`cusId`, `cusName`, `cusCode`, `cusAddress`, `cusPhone`, `cusJob`, `cusOffice`, `cusStore`, `cusEmail`, `nic`, `license`, `customerReview`, `guarantorId`) VALUES
+(6, 'kavindu  Z', 'cus002', 'Hunnasgiriya Z', '1234567895 Z', 'kada Z', 'kavindu stores', 'terra', 'kavindu@gmail.com', 'nicZ', 'liceneZ', 'goodd', NULL),
+(14, 'test', 'CUS003', 'kandy', '1', 'SE', '', '', NULL, '123456789v', '987654321', 'Good', NULL),
+(17, 'test', 'CUS004', 'test', 'test', 'test', '', '', NULL, 'test', 'test', 'Good', NULL);
 
 -- --------------------------------------------------------
 
@@ -229,6 +227,27 @@ CREATE TABLE `expensescat` (
   `expensesCatName` varchar(45) NOT NULL,
   `expensesCatType` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guarantor`
+--
+
+CREATE TABLE `guarantor` (
+  `guarantorId` int(11) NOT NULL,
+  `guarantorName` varchar(255) NOT NULL,
+  `guarantorNic` varchar(255) NOT NULL,
+  `guarantorPhone` varchar(255) NOT NULL,
+  `guarantorAddress` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `guarantor`
+--
+
+INSERT INTO `guarantor` (`guarantorId`, `guarantorName`, `guarantorNic`, `guarantorPhone`, `guarantorAddress`) VALUES
+(1, 'test', 'test', 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -570,7 +589,8 @@ ALTER TABLE `costing_headers`
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`cusId`) USING BTREE;
+  ADD PRIMARY KEY (`cusId`) USING BTREE,
+  ADD KEY `fk_guarantor` (`guarantorId`);
 
 --
 -- Indexes for table `deliverynote`
@@ -603,6 +623,12 @@ ALTER TABLE `expenses`
 --
 ALTER TABLE `expensescat`
   ADD PRIMARY KEY (`expensesCatId`) USING BTREE;
+
+--
+-- Indexes for table `guarantor`
+--
+ALTER TABLE `guarantor`
+  ADD PRIMARY KEY (`guarantorId`);
 
 --
 -- Indexes for table `invoice`
@@ -746,7 +772,7 @@ ALTER TABLE `costing_headers`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cusId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `cusId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `deliverynote`
@@ -771,6 +797,12 @@ ALTER TABLE `expenses`
 --
 ALTER TABLE `expensescat`
   MODIFY `expensesCatId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `guarantor`
+--
+ALTER TABLE `guarantor`
+  MODIFY `guarantorId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -878,6 +910,12 @@ ALTER TABLE `costing_details`
 --
 ALTER TABLE `costing_headers`
   ADD CONSTRAINT `fk_customer` FOREIGN KEY (`cusId`) REFERENCES `customer` (`cusId`);
+
+--
+-- Constraints for table `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `fk_guarantor` FOREIGN KEY (`guarantorId`) REFERENCES `guarantor` (`guarantorId`);
 
 --
 -- Constraints for table `deliverynote`
