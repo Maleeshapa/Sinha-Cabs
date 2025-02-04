@@ -39,6 +39,7 @@ import CreatePF from './components/PerformaInvoice/CreatePF';
 import DueInvoice from './components/Due/DueInvoice';
 import UnpaidInvoice from './components/Due/Unpaid';
 import SupplierVisePayments from './Models/SupplierForm/SupplierVisePayments';
+import Expenses from './Pages/Expenses/Expenses';
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('token');
@@ -81,7 +82,7 @@ function Layout() {
             <Route path="/sales-reports/*" element={<ProtectedRoute><SalesReports /></ProtectedRoute>} />
             <Route path="/stock-reports/*" element={<ProtectedRoute><StockReports /></ProtectedRoute>} />
             <Route path="/staff/*" element={<ProtectedRoute><Staff /></ProtectedRoute>} />
-
+            <Route path="/expenses/*" element={<Expenses />} />
 
             <Route path="/supplier/*" element={<ProtectedRoute><Supplier /></ProtectedRoute>} />
             <Route path="/supplier-payments/:supplierId" element={<ProtectedRoute><SupplierVisePayments /></ProtectedRoute>} />
@@ -116,8 +117,6 @@ function Layout() {
             <Route path="/costing-table" element={<ProtectedRoute><CostingTable /></ProtectedRoute>} />
             <Route path="/qutation" element={<ProtectedRoute><Qutation /></ProtectedRoute>} />
             <Route path="/qutation-invoice/:id" element={<ProtectedRoute><QuotationInvoice /></ProtectedRoute>} />
-
-
           </Routes>
         </div>
       </div>
