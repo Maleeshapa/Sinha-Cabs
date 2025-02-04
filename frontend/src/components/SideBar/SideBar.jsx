@@ -152,10 +152,9 @@ const Sidebar = () => {
             icon: <HandCoins size={20} />,
             path: '/expenses',
             submenus: [
-                { title: 'Enter Expenses', path: '/expenses/category' },
-                { title: 'Create Category', path: '/expenses/enter' },
-                { title: 'Create Expenses', path: '/expenses/create' },
-                { title: 'Expenses List ', path: '/expenses/expenseslist' },
+                { title: 'Enter Expenses', path: '/expenses/expenses' },
+                { title: 'Create Category', path: '/expenses/category' },
+                { title: 'Expenses History ', path: '/expenses/expensesHistory'},
             ]
         },
 
