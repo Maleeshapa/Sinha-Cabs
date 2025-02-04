@@ -43,7 +43,7 @@ const NewSales = ({ invoice }) => {
     const [date, time] = NewTime.split(', ');
     return { date: date.split('/').reverse().join('-'), time };
   };
-  const Columns = ['Product Code', 'Product Name', 'Product Price', 'Quantity', 'Discount', 'Total Price', 'Warranty', 'Product ID', 'Stock ID', 'Actions'];
+  const Columns = ['Number Plate', 'Vechicle', 'Price', 'Quantity', 'Discount', 'Total Price', 'Warranty', 'Product ID', 'Stock ID', 'Actions'];
   const [formData, setFormData] = useState({
     cusName: '',
     cusNic: '',
@@ -880,11 +880,11 @@ const NewSales = ({ invoice }) => {
               </div>
             </div>
             <div className="sales-addbtn d-grid d-md-flex me-md-2 justify-content-end px-5">
-              <button className="btn btn-primary btn-md" onClick={handleAddProduct} style={{ fontSize: "12px" }}>Add Product</button>
+              <button className="btn btn-primary btn-md" onClick={handleAddProduct} style={{ fontSize: "12px" }}>Add Vechicle</button>
             </div>
           </div>
 
-          <div className="product-table">
+          <div className="product-table mt-4">
             <table className="table table-dark table-striped table-responsive">
               <thead className=''>
                 <tr>
