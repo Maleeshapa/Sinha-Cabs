@@ -973,7 +973,7 @@ const NewSales = ({ invoice }) => {
                   )}
                 </div>
 
-                <div className="payment-details">
+                {/* <div className="payment-details">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="card" id="card" onChange={handleCard} className='payment-method' />
                     <label htmlFor="card" id='label' className='payment-card'>Card Payment</label>
@@ -981,18 +981,19 @@ const NewSales = ({ invoice }) => {
                   {showCard && (
                     <input type="number" className="form-control" id='' name='card' onChange={handlePaymentChange} value={formData.card} placeholder='Card Payment' onWheel={(e) => e.target.blur()} />
                   )}
-                </div>
+                </div> */}
 
-                {/* <div className="payment-details displayNone">
+                <div className="payment-details displayNone">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="credit" id="credit" onChange={handleCredit} className='payment-method' />
-                    <label htmlFor="credit" id='label' className='payment-card'>Credit Payment</label>
+                    <label htmlFor="credit" id='label' className='payment-card'>Pay Later</label>
                   </div>
                   {showCredit && (
                       <input type="number" className="form-control" id='payment' name='credit' value={formData.credit} onChange={handlePaymentChange} placeholder='credit Amount' onWheel={(e) => e.target.blur()} />
                     )} 
-                </div> */}
-                <div className="payment-details">
+                </div>
+
+                {/* <div className="payment-details">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="cheque" id="cheque" onChange={handleCheque} className='payment-method' />
                     <label htmlFor="cheque" id='label' className='payment-card'>Cheque Payment</label>
@@ -1004,6 +1005,7 @@ const NewSales = ({ invoice }) => {
                     </div>
                   )}
                 </div>
+                 */}
                 <div className="payment-details">
                   <div className="payment-details-amount">
                     <input type="checkbox" name="online" id="online" onChange={handleOnlinePay} className='payment-method' />

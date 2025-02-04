@@ -8,13 +8,16 @@ const Header = () => {
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  const trialStartDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), 1);
-  const trialDuration = 30;
+  // Calculate the last day of the current month
+  const getLastDayOfMonth = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are zero-based, so add 1
+    return new Date(year, month, 0); // Day 0 of the next month is the last day of the current month
+  };
 
-  const trialEndDate = new Date(trialStartDate);
-  trialEndDate.setDate(trialEndDate.getDate() + trialDuration);
-
-  const remainingDays = Math.max(0, Math.ceil((trialEndDate - currentTime) / (1000 * 60 * 60 * 24)));
+  // Calculate remaining days until the end of the month
+  const lastDayOfMonth = getLastDayOfMonth(currentTime);
+  const remainingDays = Math.max(0, Math.ceil((lastDayOfMonth - currentTime) / (1000 * 60 * 60 * 24)));
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,7 +26,6 @@ const Header = () => {
 
     return () => clearInterval(timer);
   }, []);
-
 
   const handleNewSaleClick = () => {
     navigate('/sales/new');
@@ -40,13 +42,13 @@ const Header = () => {
   return (
     <header className="d-flex align-items-center justify-content-between p-3  text-light">
       <div className="d-flex align-items-center">
-        <Back/>
+        <Back />
       </div>
       <div className="d-flex align-items-center">
         <span className="trial-message text-white me-3 d-none d-md-block">
           {remainingDays > 0
-            ? `Trial Version: Only ${remainingDays} day${remainingDays > 1 ? 's' : ''} remaining`
-            : 'Trial Expired'}
+            ? `${remainingDays} day${remainingDays > 1 ? 's' : ''} left until month end`
+            : 'Today is the last day of the month'}
         </span>
         <div className="text-light">
           <div className='date'>
