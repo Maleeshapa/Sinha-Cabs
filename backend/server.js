@@ -33,6 +33,7 @@ const SwitchController = require('./controller/SwitchController');
 
 const DueCustomer = require("./model/DueCustomer");
 const DueController = require("./controller/DueController");
+const GuarantorController = require("./controller/GuarantorController");
 
 // const CostingController = require("./controller/CostingController");
 // const CostingController = require("./controller/");
@@ -126,15 +127,13 @@ app.put('/updateDraft/:invoiceId', InvoiceController.updateInvoiceDraft)
 //invoiceProduct Route
 app.post('/invoiceProduct', InvoiceProductController.createInvoiceProduct);
 app.get('/invoiceProducts', InvoiceProductController.getAllInvoiceProducts);
-// app.get('/invoiceProducts/:invoiceId', InvoiceProductController.getInvoiceById);
 app.delete('/invoiceProducts/:invoiceProductId', InvoiceProductController.deleteInvoiceProductById);
-// app.get('/invoiceProduct/:id', InvoiceProductController.getById);
-// app.delete('/invoiceProduct/:invoiceId', InvoiceProductController.deleteInvoiceProduct);
-// app.get('/invoiceProduct/:num', InvoiceProductController.getInvoiceProductsByNo);
-// app.put('/invoiceProducts/:id', InvoiceProductController.updateInvoiceProductStatus);
-// app.put('/invoiceProductsQty/:id', InvoiceProductController.updateInvoiceProductQty);
-// app.put('/updateDeliveryNote/:id', InvoiceProductController.updateDeliveryNote);
-// app.get('/invoiceProduct/stock/:stockId', InvoiceProductController.getInvoiceProductsByStockId);
+
+//guarantor routes
+app.post("/guarantor", GuarantorController.createGuarantor);
+app.get("/guarantors", GuarantorController.getAllGuarantors);
+app.get("/guarantor/:id", GuarantorController.getGurantorById);
+app.get("/guarantors/suggestions/:name", GuarantorController.getGurantorSuggestions);
 
 //due Customer Route
 app.post('/duecustomer', DueCustomerController.createDueCustomer);
@@ -142,7 +141,6 @@ app.get('/duecustomers', DueCustomerController.getAllDueCustomers);
 app.get('/duecustomer/:id', DueCustomerController.getDueCustomerById);
 app.put('/duecustomer/:id', DueCustomerController.updateDueCustomer);
 app.delete('/duecustomer/:id', DueCustomerController.deleteDueCustomer);
-
 app.post("/due/pay/:invoiceId", DueController.payDueAmount);
 
 //transaction routes
@@ -203,16 +201,6 @@ app.get("/costing/:id", CostingController.getCostingById);
 app.put("/costing/:id", CostingController.updateCosting);
 app.delete("/costing/:id", CostingController.deleteCosting);
 app.put("/costings/:id", CostingController.updateAllCosting);
-
-//Delivery note Route
-// app.post('/deliveryNote', DeliveryNoteController.createDeliveryNote);
-// app.get('/deliveryNotes', DeliveryNoteController.getAllDeliveryNote);
-// app.get('/deliveryNotes/:invoiceId', DeliveryNoteController.getDeliveryNoteById)
-// app.delete('/deliveryNote/:invoiceId', DeliveryNoteController.deleteDeliveryNote)
-// app.get('/deliveryNote/:num', DeliveryNoteController.getDeliveryNoteByNo);
-// app.put('/deliveryNotes/:id', DeliveryNoteController.updateDeliveryNoteStatus);
-// app.put('/deliveryNotesStatus/:id', DeliveryNoteController.updateStatus);
-// app.put('/deliveryNotesQty/:id', DeliveryNoteController.updateDeliverytQty);
 
 // status endpoint
 app.get('/api/switch', SwitchController.getStatus);
