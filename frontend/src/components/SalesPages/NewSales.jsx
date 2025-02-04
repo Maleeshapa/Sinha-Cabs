@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CirclePlus, Plus, PlusCircle, ShoppingCart, User } from 'lucide-react';
+import { CarFront, CirclePlus, Plus, PlusCircle, ShoppingCart, User } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './NewSales.css';
 import Table from '../Table/Table'
@@ -793,16 +793,14 @@ const NewSales = ({ invoice }) => {
               <div className="product">
                 <div className="subCaption d-flex justify-content-between  mb-3">
                   <p className="mb-0 d-flex align-items-center">
-                    <ShoppingCart className="me-2" /> Product Details
+                    <CarFront className="me-2" /> Vechicle Details
                   </p>
                   <button className="btn btn-success btn-sm me-2" style={{ fontSize: "12px" }} type="button" onClick={() => navigate('/product/product-list')}> Create Product </button>
                 </div>
 
                 <div className="row">
-                  <div className="product-details col-md-4 mb-2">
-                    <input onChange={handleChange} value={formData.productNo} type="text" name="productNo" className="form-control" id="productNo" placeholder="Product Code" />
-                  </div>
-                  <div className="product-details col-md-8 mb-2">
+
+                <div className="product-details col-md-8 mb-2">
                     {/* <input onChange={handleChange} value={formData.productName} type="text" name="productName" className="form-control" id="productName" placeholder="Product Name" /> */}
                     <ProductSearch
                       value={formData.productName}
@@ -810,8 +808,13 @@ const NewSales = ({ invoice }) => {
                       onProductSelect={handleProductSelect}
                     />
                   </div>
+                  
+                  <div className="product-details col-md-4 mb-2">
+                    <input onChange={handleChange} value={formData.productNo} type="text" name="productNo" className="form-control" id="productNo" placeholder="Number Plate" />
+                  </div>
+                 
                   <div className="product-details col-md-3 mb-2">
-                    <input onChange={handleChange} value={formData.productPrice} type="number" name="productPrice" className="form-control" id="price" placeholder="Product Price" onWheel={(e) => e.target.blur()} />
+                    <input onChange={handleChange} value={formData.productPrice} type="number" name="productPrice" className="form-control" id="price" placeholder="Rent Price" onWheel={(e) => e.target.blur()} />
                   </div>
                   <div className="product-details col-md-3 mb-2">
                     <input onChange={handleChange} value={formData.qty} type="number" name="qty" className="form-control" id="qty" placeholder="Enter Quantity" />

@@ -55,7 +55,7 @@ const ProductSearch = ({ onProductSelect, value, onChange }) => {
         name="productName"
         value={value}
         onChange={handleInputChange}
-        placeholder="Product Name"
+        placeholder="Vechicle Name"
       />
       {showSuggestions && suggestions.length > 0 && (
         <div className="position-absolute w-100 bg-white shadow-sm border rounded mt-1 z-50">

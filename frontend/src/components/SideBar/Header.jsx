@@ -26,7 +26,7 @@ const Header = () => {
 
 
   const handleNewSaleClick = () => {
-    navigate('/sales/new/invoice');
+    navigate('/sales/new');
   };
 
   const formattedDate = currentTime.toLocaleDateString('en-SL', {
