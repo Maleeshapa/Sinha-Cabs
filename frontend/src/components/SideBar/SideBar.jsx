@@ -113,7 +113,7 @@ const Sidebar = () => {
             submenus: [
 
                 { title: 'Vechicles Category', path: '/product/category' },
-                { title: 'Vechicles', path: '/product/create' },
+                { title: 'Add New Vechicle', path: '/product/create' },
                 { title: 'Vechicles List', path: '/product/product-list' }
             ]
         },

@@ -45,13 +45,14 @@ const createProduct = async (req, res) => {
                 productDescription,
                 productWarranty,
                 productDiscount,
-                categoryId
+                categoryId,
+                productChassi 
             } = req.body;
 
             // Validate required fields
-            if (!productName || !productCode || !productBuyingPrice || !productSellingPrice) {
-                return res.status(400).json({ error: "All fields are required." });
-            }
+            // if (!productName || !productCode ) {
+            //     return res.status(400).json({ error: "Vechicle Name and Number Plate are required." });
+            // }
 
             // Validate category
             const category = await Category.findByPk(categoryId);
@@ -85,6 +86,7 @@ const createProduct = async (req, res) => {
                 productDescription,
                 productImage,
                 productStatus: "In stock",
+                productChassi ,
                 category_categoryId: categoryId
             });
 
@@ -170,8 +172,9 @@ const updateProduct = async (req, res) => {
                 productWarranty,
                 productDescription,
                 productEmi,
-                productStatus,
-                categoryId
+                productStatus,                
+                productChassi ,
+                categoryId,
             } = req.body;
 
             // Validate category
@@ -214,6 +217,7 @@ const updateProduct = async (req, res) => {
                 productDescription,
                 productEmi,
                 productStatus,
+                productChassi ,
                 category_categoryId: categoryId,
                 productImage
             });

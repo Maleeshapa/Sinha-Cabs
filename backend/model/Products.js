@@ -16,7 +16,7 @@ const Product = sequelize.define(
     },
     productCode: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     productDiscount: {
       type: DataTypes.FLOAT,
@@ -28,11 +28,11 @@ const Product = sequelize.define(
     },
     productBuyingPrice: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     productSellingPrice: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     productWarranty: {
       type: DataTypes.STRING,
@@ -40,7 +40,7 @@ const Product = sequelize.define(
     },
     productProfit: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     productEmi: {
       type: DataTypes.STRING,
@@ -48,7 +48,7 @@ const Product = sequelize.define(
     },
     productDescription: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     productImage: {
       type: DataTypes.STRING,
@@ -58,6 +58,10 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "In stock",
+    },
+    productChassi: {
+      type: DataTypes.STRING,
+      allowNull: true,  
     },
     category_categoryId: {
       type: DataTypes.INTEGER,
