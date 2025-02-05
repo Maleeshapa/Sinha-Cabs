@@ -267,7 +267,10 @@ const CreateProduct = () => {
               </div> */}
             </div>
             <div className="sales-add btn d-grid d-md-flex me-md-2 justify-content-end px-5">
-              <button type='reset' className="btn btn-danger mb-2 text-bold" onReset={handleReset} style={{fontSize: "13px"}}>Clear</button>
+            <button type="button" className="btn btn-danger mb-2 text-bold" onClick={handleReset} style={{ fontSize: "13px" }}>
+  Clear
+</button>
+
               <button className="btn btn-primary btn-md mb-2" style={{fontSize: "13px"}}>{selectedProd ? 'Update Vechicle' : 'Create Vechicle'}</button>
             </div>
           </form>

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import config from '../../config';
+import { Link } from 'react-router-dom';
 
 const EnterExpenses = () => {
     const [expensesCats, setExpensesCats] = useState([]);
@@ -53,7 +54,12 @@ const EnterExpenses = () => {
 
     return (
         <div className="container mt-5 col-lg-10 ">
-            <h4>Enter Expenses</h4> <br />
+            <div className="row d-flex justify-content-between align-items-center mb-3">
+                <h4 className="col-auto">Enter Expenses</h4>
+                <div className="col-auto">
+                    <Link to="/expenses/history" className="btn btn-warning">Expenses History</Link>
+                </div>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Expenses Category</label>

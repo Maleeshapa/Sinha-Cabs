@@ -115,7 +115,8 @@ const Sidebar = () => {
 
                 { title: 'Vechicles Category', path: '/product/category' },
                 { title: 'Add New Vechicle', path: '/product/create' },
-                { title: 'Vechicles List', path: '/product/product-list' }
+                { title: 'Vechicles List', path: '/product/product-list' },
+                { title: 'Vechicles summary', path: '/product/product-summary' },
             ]
         },
 

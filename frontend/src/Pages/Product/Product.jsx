@@ -4,6 +4,7 @@ import CreateProduct from '../../components/ProductPages/CreateProduct'
 import CreateProductLable from '../../components/ProductPages/CreateProductLable'
 import ProductList from '../../components/ProductPages/ProductList'
 import ProductCategory from '../../components/ProductPages/ProductCategory'
+import ProductSummary from '../../components/ProductPages/productSummary'
 import Header from '../../components/SideBar/Header'
 
 const Product = () => {
@@ -15,6 +16,7 @@ const Product = () => {
         <Route path='category' element={<ProductCategory />} />
         <Route path='product-lable' element={<CreateProductLable />} />
         <Route path='product-list' element={<ProductList />} />
+        <Route path='product-summary' element={ <ProductSummary/>} /> 
       </Routes>
     </div>
   )

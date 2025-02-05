@@ -5,38 +5,35 @@ import config from '../../config';
 import { useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
-  const [data, setData] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [data, setData] = useState([]); // Added data state
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductIndex, setSelectedProductIndex] = useState(null);
 
-  const columns = ['#', 'Vechicle', 'Vechicle Number Plate', 'Chassi Number' ,'Rent Price',  'Description',"CategoryId", 'Category', 'Status'];
-  const btnName = ['Create Vechicle +'];
+  const columns = ['#', 'Vehicle', 'Vehicle Number Plate', 'Chassis Number', 'Rent Price', 'Description', 'CategoryId', 'Category', 'Status'];
+  const btnName = ['Create Vehicle +'];
 
   useEffect(() => {
     fetchProductList();
-  });
+  }, []); // Added dependency array to prevent infinite loop
 
   const fetchProductList = async () => {
     try {
       const response = await fetch(`${config.BASE_URL}/products`);
       if (!response.ok) {
-        setError(`Failed to fetch product list: ${response.status} ${response.statusText}`);
+        throw new Error(`Failed to fetch product list: ${response.status} ${response.statusText}`);
       }
-      const prod = await response.json();
-      const formattedData = prod.map(prod => [
+      const fetchedProducts = await response.json();
+      setProducts(fetchedProducts);
+      
+      const formattedData = fetchedProducts.map(prod => [
         prod.productId,
         prod.productName,
         prod.productCode,
         prod.productChassi,
-
-        
-
         prod.productSellingPrice,
-
-        
-
         prod.productDescription,
         prod.category?.categoryId,
         prod.category?.categoryName,
@@ -84,7 +81,7 @@ const ProductList = () => {
 
   const confirmDelete = async () => {
     try {
-      const productId = data[selectedProductIndex][0];
+      const productId = products[selectedProductIndex].productId;
       const response = await fetch(`${config.BASE_URL}/product/${productId}`, {
         method: 'DELETE',
       });
@@ -94,7 +91,6 @@ const ProductList = () => {
         throw new Error(`Failed to delete Product: ${response.status} ${response.statusText}. ${errorData.message || ''}`);
       }
 
-      setData(prevData => prevData.filter((_, index) => index !== selectedProductIndex));
       await fetchProductList();
     } catch (err) {
       setError(`Error deleting product: ${err.message}`);
@@ -111,21 +107,20 @@ const ProductList = () => {
   };
 
   const handleEdit = (rowIndex) => {
-    const selectedProdData = data[rowIndex];
-    const selectedProd = {
-      productId: selectedProdData[0],
-      category: selectedProdData[9],
-      productName: selectedProdData[1],
-      productCode: selectedProdData[2],
-      productUnit: selectedProdData[3],
-      productBuyingPrice: selectedProdData[4],
-      productSellingPrice: selectedProdData[5],
-      productWarranty: selectedProdData[6],
-      productProfit: selectedProdData[7],
-      productDescription: selectedProdData[8],
+    const selectedProduct = products[rowIndex];
+    // Only pass serializable data
+    const editData = {
+      productId: selectedProduct.productId,
+      category: selectedProduct.category,
+      productName: selectedProduct.productName,
+      productCode: selectedProduct.productCode,
+      productChassi: selectedProduct.productChassi,
+      productSellingPrice: selectedProduct.productSellingPrice,
+      productDescription: selectedProduct.productDescription,
+      productStatus: selectedProduct.productStatus
     };
 
-    navigate('/product/create', { state: { selectedProd } });
+    navigate('/product/create', { state: { selectedProd: editData } });
   };
 
   const navigate = useNavigate();
@@ -134,26 +129,27 @@ const ProductList = () => {
     navigate('/product/create');
   };
 
-  const title = 'Vechicles List';
-  const invoice = 'Vechicles.pdf';
+  const title = 'Vehicles List';
+  const invoice = 'Vehicles.pdf';
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
       <div className="scrolling-container">
-        <h4>Vechicles List</h4>
-        
-          <Table
-            data={data}
-            columns={columns}
-            btnName={btnName}
-            onAdd={handleAddProduct}
-            onDelete={handleDelete}
-            onEdit={handleEdit}
-            showDate={false}
-            title={title}
-            invoice={invoice}
-          />
-        
+        <h4>Vehicles List</h4>
+        <Table
+          data={data}
+          columns={columns}
+          btnName={btnName}
+          onAdd={handleAddProduct}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          showDate={false}
+          title={title}
+          invoice={invoice}
+        />
         {isModalOpen && (
           <ConfirmModal
             onConfirm={confirmDelete}
