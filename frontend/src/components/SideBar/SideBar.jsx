@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, ShoppingCart,  Users,  FileText, Menu,  User,  SquarePen, CircleDollarSign, HandCoins, Car, CirclePlus } from 'lucide-react';
 import './SideBar.css';
 
+
 const Sidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -133,6 +134,17 @@ const Sidebar = () => {
                 // { title: 'All Due History', path: '/due-customer/all-due-history' },
             ]
         },
+
+        {
+            title: 'Gurantor',
+            icon: <i className="bi bi-person-raised-hand" style={{ fontSize: '20px' }}></i>,
+            path: '/gurantor',
+            submenus: [
+                { title: 'Gurantor List', path: '/gurantor' }
+            ]
+        }
+        ,
+
 
 
         {

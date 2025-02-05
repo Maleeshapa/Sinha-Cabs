@@ -65,9 +65,9 @@ const EnterExpenses = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <label>Product Name</label>
+                    <label>Vechicle Name</label>
                     <select className="form-control" value={selectedProduct} onChange={e => setSelectedProduct(e.target.value)} required>
-                        <option value="">Select Product</option>
+                        <option value="">Select </option>
                         {products.map(product => (
                             <option key={product.productId} value={product.productId}>{product.productName}</option>
                         ))}

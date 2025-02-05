@@ -22,7 +22,7 @@ const ExpensesHistory = () => {
                         <tr>
                             <th>#</th>
                             <th>Category</th>
-                            <th>Product</th>
+                            <th>Vechicle</th>
                             <th>Price</th>
                             <th>Description</th>
                             <th>Date</th>

@@ -41,6 +41,7 @@ import UnpaidInvoice from './components/Due/Unpaid';
 import SupplierVisePayments from './Models/SupplierForm/SupplierVisePayments';
 import Expenses from './Pages/Expenses/Expenses';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import Gurantor from './Pages/Gurantor/Gurantor';
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('token');
@@ -84,6 +85,11 @@ function Layout() {
             <Route path="/stock-reports/*" element={<ProtectedRoute><StockReports /></ProtectedRoute>} />
             <Route path="/staff/*" element={<ProtectedRoute><Staff /></ProtectedRoute>} />
             <Route path="/expenses/*" element={<Expenses />} />
+
+
+            <Route path="/gurantor" element={<Gurantor />} />
+
+
 
             <Route path="/supplier/*" element={<ProtectedRoute><Supplier /></ProtectedRoute>} />
             <Route path="/supplier-payments/:supplierId" element={<ProtectedRoute><SupplierVisePayments /></ProtectedRoute>} />
