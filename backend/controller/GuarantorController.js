@@ -3,23 +3,18 @@ const { Op } = require('sequelize');
 
 const createGuarantor = async (req, res) => {
     try {
-        const { name, phone, address, nic, jobPosition, customerReview, customerDescription } = req.body;
-        const newGuarantor = new Guarantor({
-            name,
-            phone,
-            address,
-            nic,
-            jobPosition,
-            customerReview,
-            customerDescription
+        const { guarantorName, guarantorNic, guarantorPhone, guarantorAddress } = req.body;
+        const newGuarantor = await Guarantor.create({
+            guarantorName,
+            guarantorNic,
+            guarantorPhone,
+            guarantorAddress
         });
-
-        await newGuarantor.save();
-        res.status(201).json({ message: 'New Guarantor created successfully' });
+        res.status(201).json(newGuarantor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
 
 const getGurantorById = async (req, res) => {
     try {
@@ -33,7 +28,7 @@ const getGurantorById = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
 
 const getAllGuarantors = async (req, res) => {
     try {
@@ -42,7 +37,7 @@ const getAllGuarantors = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
 
 const getGurantorSuggestions = async (req, res) => {
     try {
@@ -58,11 +53,48 @@ const getGurantorSuggestions = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
+const updateGuarantor = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { guarantorName, guarantorNic, guarantorPhone, guarantorAddress } = req.body;
+        const guarantor = await Guarantor.findByPk(id);
+        if (guarantor) {
+            guarantor.guarantorName = guarantorName;
+            guarantor.guarantorNic = guarantorNic;
+            guarantor.guarantorPhone = guarantorPhone;
+            guarantor.guarantorAddress = guarantorAddress;
+            await guarantor.save();
+            res.status(200).json(guarantor);
+        } else {
+            res.status(404).json({ message: 'Guarantor not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const deleteGuarantor = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const guarantor = await Guarantor.findByPk(id);
+        if (guarantor) {
+            await guarantor.destroy();
+            res.status(200).json({ message: 'Guarantor deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Guarantor not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 module.exports = {
     createGuarantor,
     getGurantorById,
     getAllGuarantors,
-    getGurantorSuggestions
-}
+    getGurantorSuggestions,
+    updateGuarantor,
+    deleteGuarantor
+};

@@ -43,6 +43,7 @@ import Expenses from './Pages/Expenses/Expenses';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Gurantor from './Pages/Gurantor/Gurantor';
 
+
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('token');
   const location = useLocation();

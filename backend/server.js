@@ -133,6 +133,8 @@ app.delete('/invoiceProducts/:invoiceProductId', InvoiceProductController.delete
 app.post("/guarantor", GuarantorController.createGuarantor);
 app.get("/guarantors", GuarantorController.getAllGuarantors);
 app.get("/guarantor/:id", GuarantorController.getGurantorById);
+app.put('/guarantors/:id', GuarantorController.updateGuarantor);
+app.delete('/guarantors/:id', GuarantorController.deleteGuarantor);
 app.get("/guarantors/suggestions/:name", GuarantorController.getGurantorSuggestions);
 
 //due Customer Route
