@@ -32,7 +32,9 @@ const Hire = () => {
         productCode: '',
         productSellingPrice: ''
     });
-    
+
+    const [tableData, setTableData] = useState([]);
+
 
     useEffect(() => {
         const fetchHireVehicles = async () => {
@@ -88,6 +90,20 @@ const Hire = () => {
                 productSellingPrice: selected.productSellingPrice
             });
         }
+    };
+
+    const handleAdd = () => {
+        const newRow = {
+            customerName: customerData.cusName,
+            customerNIC: customerData.nic,
+            guarantorName: guarantorData.guarantorName,
+            guarantorNIC: guarantorData.nic,
+            vehicleName: selectedVehicle.productName,
+            numberPlate: selectedVehicle.productCode,
+            hirePrice: selectedVehicle.productSellingPrice
+        };
+
+        setTableData([...tableData, newRow]);
     };
 
     return (
@@ -222,7 +238,7 @@ const Hire = () => {
                         className="form-control mb-2"
                         placeholder="Hire Price"
                         value={selectedVehicle.productSellingPrice}
-                        readOnly
+
                     />
                 </div>
             </div>
@@ -230,7 +246,7 @@ const Hire = () => {
 
 
             <div className="d-flex justify-content-end">
-                <button className="btn btn-primary mt-3">Add</button>
+                <button className="btn btn-primary mt-3" onClick={handleAdd}>Add</button>
             </div>
 
 
@@ -249,15 +265,17 @@ const Hire = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>123456789</td>
-                            <td></td>
-                            <td></td>
-                            <td>Toyota Corolla</td>
-                            <td>ABC-123</td>
-                            <td>$100/day</td>
-                        </tr>
+                        {tableData.map((row, index) => (
+                            <tr key={index}>
+                                <td>{row.customerName}</td>
+                                <td>{row.customerNIC}</td>
+                                <td>{row.guarantorName}</td>
+                                <td>{row.guarantorNIC}</td>
+                                <td>{row.vehicleName}</td>
+                                <td>{row.numberPlate}</td>
+                                <td>{row.hirePrice}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -277,22 +295,22 @@ const Hire = () => {
             </div>
 
             <div className="col-md-6">
-                    
-                        <label >Driver select</label>
-                        <select className="form-control mb-2" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    
-                </div>
+
+                <label >Driver select</label>
+                <select className="form-control mb-2" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+
+            </div>
 
 
             <div className="row mt-3">
 
-                
+
                 <div className="col-md-6">
                     <label>Payable Amount</label>
                     <input type="text" className="form-control mb-2" placeholder="Payable Amount" />
