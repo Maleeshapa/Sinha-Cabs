@@ -63,6 +63,10 @@ const Product = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,  
     },
+    rentOrHire: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     category_categoryId: {
       type: DataTypes.INTEGER,
       references: {

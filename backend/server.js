@@ -23,7 +23,6 @@ const ProductNStockController = require("./controller/Reports/ProductStockContro
 const InvoiceProductController = require('./controller/InvoiceProduct');
 const CustomerController = require('./controller/CustomerController');
 // const DeliveryNoteController = require('./controller/DeliveryNoteController');
-const CostingController = require('./controller/CostingController');
 const ChequeController = require('./controller/ChequeController');
 const Transaction = require("./model/Transaction");
 const DueCustomerController = require("./controller/DueCustomerController");
@@ -35,8 +34,6 @@ const DueCustomer = require("./model/DueCustomer");
 const DueController = require("./controller/DueController");
 const GuarantorController = require("./controller/GuarantorController");
 
-// const CostingController = require("./controller/CostingController");
-// const CostingController = require("./controller/");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -87,6 +84,9 @@ app.get("/customer/cusCode/:code", CustomerController.getCustomerByCode);
 app.get("/customer/cusName/:name", CustomerController.getCustomerByName);
 app.get('/customers/suggestions', CustomerController.getCustomerSuggestions);
 app.get('/customers/suggestion', CustomerController.getCustomerSuggestion);
+app.get("/customer/nic/:nic", CustomerController.getCustomerByNIC);
+app.get("/customer/nic-suggestions/:query", CustomerController.getNICsuggestions);
+
 
 //product routes
 app.post("/product", ProductController.createProduct);
@@ -136,6 +136,7 @@ app.get("/guarantor/:id", GuarantorController.getGurantorById);
 app.put('/guarantors/:id', GuarantorController.updateGuarantor);
 app.delete('/guarantors/:id', GuarantorController.deleteGuarantor);
 app.get("/guarantors/suggestions/:name", GuarantorController.getGurantorSuggestions);
+app.get("/guarantors/nic-suggestions/:query", GuarantorController.getGurantorNICsuggestions);
 
 //due Customer Route
 app.post('/duecustomer', DueCustomerController.createDueCustomer);
@@ -196,13 +197,6 @@ app.delete("/expensesCat/:id", ExpensesCatController.deleteExpensesCat);
 app.get("/getReports", ReportController.getReports);
 // app.get("/productStock", ProductNStockController.getStockReports);
 
-// //Costing routes
-app.post("/costing", CostingController.createCosting);
-app.get("/costings", CostingController.getAllCostings);
-app.get("/costing/:id", CostingController.getCostingById);
-app.put("/costing/:id", CostingController.updateCosting);
-app.delete("/costing/:id", CostingController.deleteCosting);
-app.put("/costings/:id", CostingController.updateAllCosting);
 
 // status endpoint
 app.get('/api/switch', SwitchController.getStatus);
@@ -235,10 +229,11 @@ app.get('/download/invoice/:filename', (req, res) => {
     }
 });
 
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
+
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+//   });
   
 
 // Start the server

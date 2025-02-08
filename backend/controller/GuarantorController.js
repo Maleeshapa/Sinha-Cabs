@@ -90,11 +90,32 @@ const deleteGuarantor = async (req, res) => {
     }
 };
 
+async function getGurantorNICsuggestions(req, res) {
+    try {
+        const { query } = req.params;
+        
+        const guarantors = await Guarantor.findAll({
+            where: {
+                guarantorNic: {  // Changed to match model field name
+                    [Op.like]: `%${query}%`
+                }
+            },
+            limit: 10
+        });
+
+        res.status(200).json(guarantors);
+    } catch (error) {
+        console.error('Error fetching guarantor suggestions:', error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     createGuarantor,
     getGurantorById,
     getAllGuarantors,
     getGurantorSuggestions,
     updateGuarantor,
-    deleteGuarantor
+    deleteGuarantor,
+    getGurantorNICsuggestions
 };

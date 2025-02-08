@@ -215,6 +215,45 @@ async function getCustomerSuggestion(req, res) {
     }
 }
 
+async function getCustomerByNIC(req, res) {
+    try {
+        const { nic } = req.params;
+
+        // Using an exact match instead of a LIKE query
+        const customer = await Customer.findOne({
+            where: { nic }
+        });
+
+        if (!customer) {
+            return res.status(404).json({ message: "Customer not found" });
+        }
+
+        // Return the customer data as an object (or in the required format)
+        res.status(200).json(customer);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+async function getNICsuggestions(req, res) {
+    try {
+        const { query } = req.params;
+        
+        const customers = await Customer.findAll({
+            where: {
+                nic: {
+                    [Op.like]: `%${query}%`
+                }
+            },
+            limit: 10  // Limit the number of suggestions
+        });
+
+        res.status(200).json(customers);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     createCustomer,
     getAllCustomers,
@@ -224,6 +263,8 @@ module.exports = {
     getCustomerByCode,
     getCustomerByName,
     getCustomerSuggestions,
-    getCustomerSuggestion
+    getCustomerSuggestion,
+    getCustomerByNIC,
+    getNICsuggestions
 
 }

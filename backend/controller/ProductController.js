@@ -46,7 +46,8 @@ const createProduct = async (req, res) => {
                 productWarranty,
                 productDiscount,
                 categoryId,
-                productChassi 
+                productChassi ,
+                 rentOrHire 
             } = req.body;
 
             // Validate required fields
@@ -63,7 +64,7 @@ const createProduct = async (req, res) => {
             // Check if product exists by productCode
             const existingProduct = await Product.findOne({ where: { productCode } });
             if (existingProduct) {
-                return res.status(400).json({ error: "A Product with this code already exists." });
+                return res.status(400).json({ error: "A Vechicle with this Number Plate already exists." });
             }
 
             let productImage = null;
@@ -87,7 +88,9 @@ const createProduct = async (req, res) => {
                 productImage,
                 productStatus: "In stock",
                 productChassi ,
-                category_categoryId: categoryId
+                rentOrHire ,
+                category_categoryId: categoryId,
+                
             });
 
             const productWithCategory = await Product.findByPk(newProduct.productId, {

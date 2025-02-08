@@ -97,9 +97,10 @@ const GuarantorList = () => {
 
   return (
     <div>
-      <div className="scrolling-container">
-        <h4>Guarantor List</h4>
-       
+      
+      
+      <div className="scrolling-container">    
+        <h4>Guarantor List</h4>       
           <Table
             data={data}
             columns={columns}

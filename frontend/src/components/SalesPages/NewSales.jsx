@@ -929,7 +929,7 @@ const NewSales = ({ invoice }) => {
                   <input type="text" name="userName" value={formData.userName} onChange={handleChange} className="form-control" readOnly />
                 </div>
                 <div className="sales-person">
-                  <label htmlFor="" id='label'>Invoice Date</label>
+                  <label htmlFor="" id='label'>Today Date</label>
                   <input type="datetime-local" className="form-control" name="invoiceDate" onChange={handleChange} value={formData.invoiceDate} id="date" />
                 </div>
                 <div className="sales-person">

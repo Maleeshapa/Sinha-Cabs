@@ -31,6 +31,10 @@ const Header = () => {
     navigate('/sales/new');
   };
 
+  const handleNewHireClick = () => {
+    navigate('/sales/hire');
+  };
+
   const formattedDate = currentTime.toLocaleDateString('en-SL', {
     year: 'numeric',
     month: 'long',
@@ -59,9 +63,21 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <button className="btn btn-danger header-button" onClick={handleNewSaleClick}>
-        New Sale
+     
+
+     <div className='justify-content-end'>
+     <button className="btn btn-success header-button" onClick={handleNewHireClick}>
+        New Hire
       </button>
+
+  
+      <button className="btn btn-danger header-button" onClick={handleNewSaleClick}>
+        New Rent
+      </button>
+      {' '}
+     </div>
+     
+
     </header>
   );
 };

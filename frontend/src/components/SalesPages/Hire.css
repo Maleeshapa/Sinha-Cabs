@@ -1,0 +1,20 @@
+.customer-details, .product-details {
+    margin-bottom: 5px; /* Adjust as needed */
+  }
+  
+  .customer-form .subCaption {
+    margin-bottom: 10px; /* Reduce space between title and inputs */
+  }
+  
+  .customer, .product {
+    padding: 10px; /* Reduce padding inside columns */
+  }
+  
+
+  .hover-bg-light:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }

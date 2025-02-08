@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart,  Users,  FileText, Menu,  User,  SquarePen, CircleDollarSign, HandCoins, Car, CirclePlus } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart,  Users,  FileText, Menu,  User,  SquarePen, CircleDollarSign, HandCoins, Car, CirclePlus, History } from 'lucide-react';
 import './SideBar.css';
 
 
@@ -81,12 +81,14 @@ const Sidebar = () => {
         //     ]
         // },
         {
-            title: 'Rental',
+            title: 'New Sale',
             icon: < CirclePlus  size={20} />,
             path: '/sales',
             submenus: [
                 { title: 'New Rental', path: '/sales/new' },
-                { title: 'Rental History', path: '/sales/history' },
+                { title: 'New Hire', path: '/sales/hire' },
+
+                // { title: 'Rental History', path: '/sales/history' },
                 // { title: 'Invoice', path: '/sales/invoice' },
                 // { title: 'Proforma Invoice', path: '/sales/credit' },
                 // { title: 'Delivery Note', path: '/sales/delivery' },
@@ -95,6 +97,24 @@ const Sidebar = () => {
                 //{ title: 'Draft', path: '/sales/draft' },
             ]
         },
+
+        {
+            title: 'History',
+            icon: < History  size={20} />,
+            path: '/sales',
+            submenus: [
+               
+                { title: 'All History', path: ' ' },
+                { title: 'Rent History', path: ' ' },
+                // { title: 'Invoice', path: '/sales/invoice' },
+                // { title: 'Proforma Invoice', path: '/sales/credit' },
+                // { title: 'Delivery Note', path: '/sales/delivery' },
+                // { title: 'Credit Note', path: '/return/list' },
+                // { title: 'Quotation', path: '/qutation' },
+                //{ title: 'Draft', path: '/sales/draft' },
+            ]
+        },
+        
  
         
         // {
@@ -114,9 +134,12 @@ const Sidebar = () => {
             submenus: [
 
                 { title: 'Vechicles Category', path: '/product/category' },
-                { title: 'Add New Vechicle', path: '/product/create' },
-                { title: 'Vechicles List', path: '/product/product-list' },
-                { title: 'Vechicles summary', path: '/product/product-summary' },
+                { title: 'Add New Rent Vechicle', path: '/product/create' },
+                // { title: 'Rent Vechicles summary', path: '/product/product-summary' },
+                { title: 'Add New Hire Vechicle', path: '/product/createHire' },
+                
+                { title: 'Rent Vechicles List', path: '/product/product-list' },
+                { title: 'Hire Vechicles List', path: '/product/hire-vechicle-list' },
             ]
         },
 
@@ -147,6 +170,15 @@ const Sidebar = () => {
         ,
 
 
+        {
+            title: 'Driver',
+            icon: <i className="bi bi-person-raised-hand" style={{ fontSize: '20px' }}></i>,
+            path: '/gurantor',
+            submenus: [
+                { title: 'Gurantor List', path: '/gurantor' }
+            ]
+        }
+        ,
 
         {
             title: 'Incomes',

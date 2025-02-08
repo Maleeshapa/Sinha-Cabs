@@ -10,6 +10,7 @@ import Invoice from '../../components/SalesPages/Invoice';
 import DraftInvoice from '../../components/SalesPages/DraftPages/DraftInvoice';
 import DraftDelivery from '../../components/SalesPages/DraftPages/DraftDelivery';
 import DraftCredit from '../../components/SalesPages/DraftPages/DraftPerforma';
+import Hire from '../../components/SalesPages/Hire';
 
 const Sales = () => {
   return (
@@ -17,7 +18,12 @@ const Sales = () => {
       <div className='show-Header'><Header /></div>
       <Routes>
         <Route path="new" element={<NewSales />} />
+        <Route path="hire" element={<Hire />} />
+
         <Route path="history" element={<SalesHistory />} />
+
+
+
         <Route path="invoice" element={<Invoice />} />
         <Route path="delivery" element={<Delivery />} />
         <Route path="draft" element={<Draft />} />
