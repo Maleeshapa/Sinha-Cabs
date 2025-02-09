@@ -109,7 +109,7 @@ const Hire = () => {
     return (
         <div className="container-fluid p-5">
             <div className="row">
-                <div className="col-md-4 border-end">
+                <div className="col-md-4 col-sm-12 border-end">
                     <div className="d-flex justify-content-between align-items-center mb-2">
                         <h5 className="d-flex align-items-center">
                             <User className="me-2" /> Customer Details
@@ -153,7 +153,7 @@ const Hire = () => {
                 </div>
 
                 {/* Guarantor Details */}
-                <div className="col-md-4 border-end">
+                <div className="col-md-4 col-sm-12  border-end">
                     {/* <h5>Guarantor Details</h5> */}
 
 
@@ -196,7 +196,7 @@ const Hire = () => {
                 </div>
 
                 {/* Vehicle Details */}
-                <div className="col-md-4">
+                <div className="col-md-4  col-sm-12 ">
                     <div className="d-flex justify-content-between align-items-center mb-2">
                         <h5 className="d-flex align-items-center">
                             <CarFront className="me-2" />Hire Vehicle Details
@@ -314,9 +314,9 @@ const Hire = () => {
                 <div className="col-md-6">
                     <label>Payable Amount</label>
                     <input type="text" className="form-control mb-2" placeholder="Payable Amount" />
-                    <button className="btn btn-success me-2">Cash</button>
-                    <button className="btn btn-warning me-2">Pay Later</button>
-                    <button className="btn btn-info me-2">Online Payment</button>
+                    <button className="btn btn-success me-2 mt-2">Cash</button>
+                    <button className="btn btn-warning me-2 mt-2">Pay Later</button>
+                    <button className="btn btn-info me-2 mt-2">Online Payment</button>
                 </div>
                 <div className="col-md-6">
                     <label>Total Amount</label>

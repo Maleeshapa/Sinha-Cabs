@@ -180,17 +180,17 @@ const Sidebar = () => {
         }
         ,
 
-        {
-            title: 'Incomes',
-            icon: <CircleDollarSign size={20} />,
-            path: '/income',
-            submenus: [
-                { title: 'Enter Incomes', path: '/income/category' },
-                { title: 'Create Category', path: '/income/enter' },
-                { title: 'Create Incomes', path: '/income/create' },
-                { title: 'Income List ', path: '/income/incomeslist' },
-            ]
-        },
+        // {
+        //     title: 'Incomes',
+        //     icon: <CircleDollarSign size={20} />,
+        //     path: '/income',
+        //     submenus: [
+        //         { title: 'Enter Incomes', path: '/income/category' },
+        //         { title: 'Create Category', path: '/income/enter' },
+        //         { title: 'Create Incomes', path: '/income/create' },
+        //         { title: 'Income List ', path: '/income/incomeslist' },
+        //     ]
+        // },
 
         {
             title: 'Expenses',
