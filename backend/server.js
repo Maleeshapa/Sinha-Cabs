@@ -34,6 +34,7 @@ const DueCustomer = require("./model/DueCustomer");
 const DueController = require("./controller/DueController");
 const GuarantorController = require("./controller/GuarantorController");
 
+const DriverController = require("./controller/DriverController");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -193,8 +194,12 @@ app.get("/expensesCat/:id", ExpensesCatController.getExpensesCatById);
 app.put("/expensesCat/:id", ExpensesCatController.updateExpensesCat);
 app.delete("/expensesCat/:id", ExpensesCatController.deleteExpensesCat);
 
+app.get("/getDriver", DriverController.getDriverSuggestions);
+app.get("/getDriverId/:id", DriverController.getDriverById);
+app.get("/getAllDrivers", DriverController.getAllDrivers);
+
 //get reports
-app.get("/getReports", ReportController.getReports);
+// app.get("/getReports", ReportController.getReports);
 // app.get("/productStock", ProductNStockController.getStockReports);
 
 
